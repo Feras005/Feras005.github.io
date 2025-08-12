@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feras Alsadadi - Data Scientist Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e40af;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1e40af;
+        }
+
+        /* Hero Section with Data Science Background */
+        .hero {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%), 
+                        url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/premium_photo-1664297950425-99a968926a74-GNC8Kfyt31ECOhrH0rEZHTWBQK4adY.jpeg') center/cover;
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(30, 64, 175, 0.1);
+            backdrop-filter: blur(1px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/58924b69-f480-4c1f-b67e-d46eba7cadc3.JPG-1apfux2ACFTadUBkX6YhLgPs5qhKbO.jpeg') center/cover;
+            border: 4px solid rgba(255, 255, 255, 0.4);
+            animation: fadeInUp 1s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.2s both;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.4s both;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 500;
+        }
+
+        .hero .contact-info {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.5s both;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            animation: fadeInUp 1s ease 0.6s both;
+            backdrop-filter: blur(15px);
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e293b;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #1e40af, #3b82f6);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/58924b69-f480-4c1f-b67e-d46eba7cadc3.JPG-1apfux2ACFTadUBkX6YhLgPs5qhKbO.jpeg') center/cover;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e40af;
+        }
+
+        .about-text p {
+            margin-bottom: 2rem;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: #eff6ff;
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-left: 3px solid #1e40af;
+        }
+
+        .skill-icon {
+            width: 20px;
+            height: 20px;
+            background: #1e40af;
+            border-radius: 50%;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: #f8fafc;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-top: 4px solid #1e40af;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(30, 64, 175, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #64748b;
+        }
+
+        .airbnb-bg {
+            background: url('/placeholder.svg?height=250&width=450') center/cover;
+        }
+
+        .bahrain-bg {
+            background: url('/placeholder.svg?height=250&width=450') center/cover;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .project-description {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            padding: 10px 20px;
+            background: #1e40af;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+
+        .project-link:hover {
+            background: #1d4ed8;
+        }
+
+        .project-link.secondary {
+            background: #64748b;
+        }
+
+        .project-link.secondary:hover {
+            background: #475569;
+        }
+
+        /* Experience Section */
+        .experience {
+            background: white;
+        }
+
+        .experience-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .experience-item {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #1e40af;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.3rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-company {
+            color: #1e40af;
+            font-weight: 600;
+        }
+
+        .experience-date {
+            color: #64748b;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .experience-description {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* Skills Section with Logos Only */
+        .skills {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            position: relative;
+        }
+
+        .skills::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/premium_photo-1664297950425-99a968926a74-GNC8Kfyt31ECOhrH0rEZHTWBQK4adY.jpeg') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .skills .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .skills .section-title {
+            color: white;
+        }
+
+        .skills .section-title::after {
+            background: linear-gradient(90deg, #ffffff, #e5e7eb);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-category h3 {
+            margin-bottom: 2rem;
+            color: white;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        .skills-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .skill-item-logo:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .skill-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name-text {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Skill Logos */
+        .sql-logo {
+            background: #336791;
+            color: white;
+        }
+
+        .python-logo {
+            background: #3776ab;
+            color: white;
+        }
+
+        .excel-logo {
+            background: #217346;
+            color: white;
+        }
+
+        .powerbi-logo {
+            background: #f2c811;
+            color: #000;
+        }
+
+        .tableau-logo {
+            background: #e97627;
+            color: white;
+        }
+
+        .ml-logo {
+            background: #ff6f00;
+            color: white;
+        }
+
+        .stats-logo {
+            background: #4285f4;
+            color: white;
+        }
+
+        .dashboard-logo {
+            background: #00d4aa;
+            color: white;
+        }
+
+        .hypothesis-logo {
+            background: #8e44ad;
+            color: white;
+        }
+
+        .regression-logo {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Resume Section */
+        .resume {
+            background: white;
+            text-align: center;
+        }
+
+        .resume-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
+        }
+
+        .resume-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(30, 64, 175, 0.4);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #f8fafc;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1e40af;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            background: #1e40af;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .submit-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-details {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #1e40af;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #64748b;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #eff6ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e40af;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #64748b;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #eff6ff;
+        }
+
+        .social-link:hover {
+            background: #1e40af;
+            color: white;
+            transform: translateY(-2px);
+            border-color: #1e40af;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .skills-list-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">Feras Alsadadi</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-image"></div>
+                <h1>Feras Alsadadi</h1>
+                <p class="subtitle">Data Scientist | Data Analyst | Business Analyst</p>
+                <p class="contact-info">Bahraini | ferasalsadadi@gmail.com</p>
+                <a href="#about" class="cta-button">Learn More About Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-image"></div>
+                <div class="about-text">
+                    <h3>Aspiring Data Scientist</h3>
+                    <p>Aspiring data scientist with a strong foundation in business, statistics, and problem-solving. Skilled in Excel, PowerPoint, SQL, data visualization, and business simulations. Experienced in applying analytical and creative thinking to real-world challenges across business, tech, and marketing.</p>
+                    <p>Passionate about uncovering insights through data to support smarter decision-making. Committed to continuous learning and meaningful impact through analytics.</p>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-icon"></div>
+                            <span>Python Programming</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon"></div>
+                            <span>SQL Database Management</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon"></div>
+                            <span>Excel Advanced Analytics</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon"></div>
+                            <span>Power BI Dashboards</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon"></div>
+                            <span>Tableau Visualization</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon"></div>
+                            <span>Machine Learning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Experience & Education</h2>
+            <div class="experience-timeline">
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">Data Analytics Immersive Bootcamp Fellow</div>
+                            <div class="experience-company">General Assembly, Bahrain</div>
+                        </div>
+                        <div class="experience-date">Jun 2025 - Sep 2025</div>
+                    </div>
+                    <div class="experience-description">
+                        Intensive bootcamp focusing on data analytics, visualization, and machine learning. Completed comprehensive projects using Excel, Power BI, Python, and SQL to analyze real-world datasets and deliver actionable business insights.
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">Bachelor of Science - Data Science & Business Analytics</div>
+                            <div class="experience-company">University of London</div>
+                        </div>
+                        <div class="experience-date">2024 - 2027</div>
+                    </div>
+                    <div class="experience-description">
+                        Currently pursuing a comprehensive degree combining data science methodologies with business analytics applications. Focusing on statistical analysis, machine learning, and business intelligence.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">Stock Trading Simulation</div>
+                            <div class="experience-company">AmplifyME Finance Accelerator</div>
+                        </div>
+                        <div class="experience-date">May 2025</div>
+                    </div>
+                    <div class="experience-description">
+                        Participated in advanced trading simulation used by global investment banks. Managed a $20 million simulated equity portfolio, generating over $3 million in profit within 30 minutes through strategic analysis and trading decisions.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">Machine Learning Pipeline Project</div>
+                            <div class="experience-company">Coursera Project Network</div>
+                        </div>
+                        <div class="experience-date">July 2025</div>
+                    </div>
+                    <div class="experience-description">
+                        Completed hands-on project building and automating machine learning workflows using Dataiku. Gained skills in data wrangling, feature engineering, model training, and evaluation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image airbnb-bg"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Airbnb Market Analysis (Barcelona)</h3>
+                        <p class="project-description">Collaborated in a team to complete comprehensive data analysis using Airbnb datasets from InsideAirbnb. The project involved cleaning, organizing, and analyzing Barcelona-specific Airbnb listings using Microsoft Excel. Delivered actionable insights through visualizations, statistical summaries, and group presentation.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Excel</span>
+                            <span class="tech-tag">Data Cleaning</span>
+                            <span class="tech-tag">Statistical Analysis</span>
+                            <span class="tech-tag">Data Visualization</span>
+                            <span class="tech-tag">Team Collaboration</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">View Analysis</a>
+                            <a href="#" class="project-link secondary">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image bahrain-bg"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Bahrain Imports Dashboard</h3>
+                        <p class="project-description">As part of the collaborative team project "Manamas-log," analyzed Bahrain's import data over the last five years using datasets from data.gov.bh. Focused on foodstuff imports, identifying key trends, supply chain dynamics, and market opportunities. Developed interactive Power BI dashboard for effective visual storytelling.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Power BI</span>
+                            <span class="tech-tag">Data Analysis</span>
+                            <span class="tech-tag">Dashboard Design</span>
+                            <span class="tech-tag">Supply Chain Analysis</span>
+                            <span class="tech-tag">Government Data</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">View Dashboard</a>
+                            <a href="#" class="project-link secondary">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section with Logos Only -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Data Analytics & Handling</h3>
+                    <div class="skills-list-grid">
+                        <div class="skill-item-logo">
+                            <div class="skill-logo sql-logo">SQL</div>
+                            <div class="skill-name-text">SQL</div>
+                        </div>
+                        <div class="skill-item-logo">
+                            <div class="skill-logo python-logo">PY</div>
+                            <div class="skill-name-text">Python</div>
+                        </div>
+                        <div class="skill-item-logo">
+                            <div class="skill-logo excel-logo">XL</div>
+                            <div class="skill-name-text">Excel</div>
+                        </div>
+                        <div class="skill-item-logo">
+                            <div class="skill-logo ml-logo">ML</div>
+                            <div class="skill-name-text">Machine Learning</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Data Visualization</h3>
+                    <div class="skills-list-grid">
+                        <div class="skill-item-logo">
+                            <div class="skill-logo powerbi-logo">BI</div>
+                            <div class="skill-name-text">Power BI</div>
+                        </div>
+                        <div class="skill-item-logo">
+                            <div class="skill-logo tableau-logo">TB</div>
+                            <div class="skill-name-text">Tableau</div>
+                        </div>
+                        <div class="skill-item-logo">
+                            <div class="skill-logo dashboard-logo">DB</div>
+                            <div class="skill-name-text">Dashboard Design</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Mathematics & Statistics</h3>
+                    <div class="skills-list-grid">
+                        <div class="skill-item-logo">
+                            <div class="skill-logo stats-logo">ST</div>
+                            <div class="skill-name-text">Statistical Analysis</div>
+                        </div>
+                        <div class="skill-item-logo">
+                            <div class="skill-logo hypothesis-logo">HT</div>
+                            <div class="skill-name-text">Hypothesis Testing</div>
+                        </div>
+                        <div class="skill-item-logo">
+                            <div class="skill-logo regression-logo">RA</div>
+                            <div class="skill-name-text">Regression Analysis</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="resume">
+        <div class="container">
+            <h2 class="section-title">Resume</h2>
+            <p style="margin-bottom: 2rem; color: #64748b; font-size: 1.1rem;">Download my complete resume to learn more about my experience, education, and qualifications.</p>
+            <a href="#" class="resume-button" onclick="downloadResume()">📄 Download Resume (PDF)</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <form class="contact-form" onsubmit="sendEmail(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">📧 Send Email</button>
+                </form>
+                <div class="contact-info">
+                    <div class="contact-details">
+                        <h3 style="margin-bottom: 1.5rem; color: #1e293b;">Contact Information</h3>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <span>ferasalsadadi@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🌍</div>
+                            <span>Bahrain</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: #1e293b; text-align: center;">Let's Connect</h3>
+                        <p style="color: #64748b; margin-bottom: 2rem; text-align: center;">I'm always interested in discussing new opportunities, collaborations, or data-related challenges. Feel free to reach out!</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="LinkedIn">💼</a>
+                            <a href="#" class="social-link" title="GitHub">🐙</a>
+                            <a href="mailto:ferasalsadadi@gmail.com" class="social-link" title="Email">📧</a>
+                            <a href="#" class="social-link" title="Portfolio">🌐</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Feras Alsadadi. All rights reserved. | Data Scientist Portfolio</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Email sending function
+        function sendEmail(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Create email content
+            const subject = `Portfolio Contact from ${name}`;
+            const body = `Hello Feras,
+
+My name is ${name} and I'm reaching out through your portfolio website.
+
+Email: ${email}
+
+Message:
+${message}
+
+Best regards,
+${name}`;
+
+            // Create mailto link
+            const mailtoLink = `mailto:ferasalsadadi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show confirmation message
+            alert(`Thank you, ${name}! Your email client should now open with a pre-filled message. Please send the email to complete your inquiry.`);
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Resume download function
+        function downloadResume() {
+            // Create a text version of the CV for download
+            const cvContent = `FERAS ALSADADI
+Data Scientist | Data Analyst | Business Analyst
+Bahraini | ferasalsadadi@gmail.com
+
+PROFILE
+Aspiring data scientist with a strong foundation in business, statistics, and problem-solving. Skilled in Excel, PowerPoint, SQL, data visualization, and business simulations. Experienced in applying analytical and creative thinking to real-world challenges across business, tech, and marketing. Passionate about uncovering insights through data to support smarter decision-making. Committed to continuous learning and meaningful impact through analytics.
+
+HIGHLIGHTED SKILLS
+• Data Analytics and Handling: SQL, Python, Excel, Machine learning, Power BI, Tableau
+• Data visualisation: Tableau, Power BI, designing insightful dashboards
+• Mathematics & Statistics: Descriptive and inferential statistics, Hypothesis testing, correlation, regression analysis
+• Soft Skills: Critical thinking, leadership, Communication, Analysis
+
+DATA ANALYTICS EXPERIENCE
+Data Analytics immersive Bootcamp Fellow, General Assembly, Bahrain (Jun 2025- Sep 2025)
+
+Projects:
+1. Airbnb Market Analysis- Excel Data project(Barcelona):
+Collaborated in a team to complete a comprehensive data analysis project using Airbnb datasets from InsideAirbnb. The project involved cleaning, organizing, and analyzing city-specific Airbnb listings using Microsoft Excel. Delivered actionable insights through visualizations, statistical summaries, and a group presentation.
+
+2. Bahrain Imports Dashboard – Power BI Analysis Project
+As part of the collaborative team project "Manamas-log," we analyzed Bahrain's import data over the last five years using datasets sourced from data.gov.bh. Our focus was on foodstuff imports, identifying key trends, supply chain dynamics, and market opportunities. We developed an interactive Power BI dashboard to deliver actionable insights through effective visual storytelling.
+
+MACHINE LEARNING AND STOCK ANALYSIS EXPERIENCE
+Stock Trading Simulation – AmplifyME Finance Accelerator (May 2025)
+Took part in the AmplifyME Finance Accelerator, an advanced trading simulation used by global investment banks to assess and train future finance professionals. In a fast-paced, real-time environment, I managed a $20 million simulated equity portfolio, generating over $3 million in profit within 30 minutes through strategic analysis and trading decisions.
+
+Build Your First Machine Learning Pipeline using Dataiku (July 2025)
+Coursera Project Network
+• Completed a hands-on project focused on building and automating machine learning workflows
+• Gained skills in data wrangling, feature engineering, model training, and evaluation using Dataiku
+
+EDUCATION
+• Bachelor of Science – Data Science & Business Analytics, University of London (2024 – 2027)
+• Data Analytics Immersive Bootcamp, General Assembly, Bahrain (June 2025 – September 2025)
+
+PROFESSIONAL CERTIFICATION
+• International Baccalaureate (IB) Diploma, July 2023
+• International General Certificate of Secondary Education (IGCSE), August 2021
+• International Foundation Certificate, Bahrain Institute of Banking and Finance (BIBF) August 2024
+
+EXTRACURRICULAR ACTIVITIES & INTERESTS
+• Host and Head Marketing Director of a podcast exploring global issues and the latest technology trends
+• Competitive football player participating in local tournaments and enthusiastic marathon runner
+• Active participant in multiple Model United Nations conferences as a delegate
+• Passionate about data science and machine learning, with strong interests in AI-driven solutions, stock market prediction, and startup analytics`;
+
+            // Create and download the file
+            const blob = new Blob([cvContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Feras_Alsadadi_Resume.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Initialize animations on page load
+        window.addEventListener('load', () => {
+            // Add a small delay to ensure smooth initial animations
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
