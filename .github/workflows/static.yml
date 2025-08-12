@@ -101,7 +101,7 @@
             height: 200px;
             border-radius: 50%;
             margin: 0 auto 2rem;
-            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/58924b69-f480-4c1f-b67e-d46eba7cadc3.JPG-1apfux2ACFTadUBkX6YhLgPs5qhKbO.jpeg') center/cover;
+            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/personal.JPG-h8GF5if2Sb3zm384LOqco60IqeQlMd.jpeg') center/cover;
             border: 4px solid rgba(255, 255, 255, 0.4);
             animation: fadeInUp 1s ease;
             backdrop-filter: blur(10px);
