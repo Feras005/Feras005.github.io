@@ -550,30 +550,6 @@
             color: white;
         }
 
-        /* Resume Section */
-        .resume {
-            background: white;
-            text-align: center;
-        }
-
-        .resume-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
-            color: white;
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
-        }
-
-        .resume-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(30, 64, 175, 0.4);
-        }
-
         /* Contact Section */
         .contact {
             background: #f8fafc;
@@ -783,7 +759,6 @@
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#resume">Resume</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -1012,15 +987,6 @@
         </div>
     </section>
 
-    <!-- Resume Section -->
-    <section id="resume" class="resume">
-        <div class="container">
-            <h2 class="section-title">Resume</h2>
-            <p style="margin-bottom: 2rem; color: #64748b; font-size: 1.1rem;">Download my complete resume to learn more about my experience, education, and qualifications.</p>
-            <a href="#" class="resume-button" onclick="downloadResume()">📄 Download Resume (PDF)</a>
-        </div>
-    </section>
-
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -1155,68 +1121,6 @@ ${name}`;
             
             // Reset form
             event.target.reset();
-        }
-
-        // Resume download function
-        function downloadResume() {
-            // Create a text version of the CV for download
-            const cvContent = `FERAS ALSADADI
-Data Scientist | Data Analyst | Business Analyst
-Bahraini | ferasalsadadi@gmail.com
-
-PROFILE
-Aspiring data scientist with a strong foundation in business, statistics, and problem-solving. Skilled in Excel, PowerPoint, SQL, data visualization, and business simulations. Experienced in applying analytical and creative thinking to real-world challenges across business, tech, and marketing. Passionate about uncovering insights through data to support smarter decision-making. Committed to continuous learning and meaningful impact through analytics.
-
-HIGHLIGHTED SKILLS
-• Data Analytics and Handling: SQL, Python, Excel, Machine learning, Power BI, Tableau
-• Data visualisation: Tableau, Power BI, designing insightful dashboards
-• Mathematics & Statistics: Descriptive and inferential statistics, Hypothesis testing, correlation, regression analysis
-• Soft Skills: Critical thinking, leadership, Communication, Analysis
-
-DATA ANALYTICS EXPERIENCE
-Data Analytics immersive Bootcamp Fellow, General Assembly, Bahrain (Jun 2025- Sep 2025)
-
-Projects:
-1. Airbnb Market Analysis- Excel Data project(Barcelona):
-Collaborated in a team to complete a comprehensive data analysis project using Airbnb datasets from InsideAirbnb. The project involved cleaning, organizing, and analyzing city-specific Airbnb listings using Microsoft Excel. Delivered actionable insights through visualizations, statistical summaries, and a group presentation.
-
-2. Bahrain Imports Dashboard – Power BI Analysis Project
-As part of the collaborative team project "Manamas-log," we analyzed Bahrain's import data over the last five years using datasets sourced from data.gov.bh. Our focus was on foodstuff imports, identifying key trends, supply chain dynamics, and market opportunities. We developed an interactive Power BI dashboard to deliver actionable insights through effective visual storytelling.
-
-MACHINE LEARNING AND STOCK ANALYSIS EXPERIENCE
-Stock Trading Simulation – AmplifyME Finance Accelerator (May 2025)
-Took part in the AmplifyME Finance Accelerator, an advanced trading simulation used by global investment banks to assess and train future finance professionals. In a fast-paced, real-time environment, I managed a $20 million simulated equity portfolio, generating over $3 million in profit within 30 minutes through strategic analysis and trading decisions.
-
-Build Your First Machine Learning Pipeline using Dataiku (July 2025)
-Coursera Project Network
-• Completed a hands-on project focused on building and automating machine learning workflows
-• Gained skills in data wrangling, feature engineering, model training, and evaluation using Dataiku
-
-EDUCATION
-• Bachelor of Science – Data Science & Business Analytics, University of London (2024 – 2027)
-• Data Analytics Immersive Bootcamp, General Assembly, Bahrain (June 2025 – September 2025)
-
-PROFESSIONAL CERTIFICATION
-• International Baccalaureate (IB) Diploma, July 2023
-• International General Certificate of Secondary Education (IGCSE), August 2021
-• International Foundation Certificate, Bahrain Institute of Banking and Finance (BIBF) August 2024
-
-EXTRACURRICULAR ACTIVITIES & INTERESTS
-• Host and Head Marketing Director of a podcast exploring global issues and the latest technology trends
-• Competitive football player participating in local tournaments and enthusiastic marathon runner
-• Active participant in multiple Model United Nations conferences as a delegate
-• Passionate about data science and machine learning, with strong interests in AI-driven solutions, stock market prediction, and startup analytics`;
-
-            // Create and download the file
-            const blob = new Blob([cvContent], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Feras_Alsadadi_Resume.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
         }
 
         // Add some interactive hover effects
