@@ -133,6 +133,14 @@
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
         }
 
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
         .cta-button {
             display: inline-block;
             background: rgba(255, 255, 255, 0.25);
@@ -143,7 +151,6 @@
             font-weight: 600;
             transition: all 0.3s ease;
             border: 2px solid rgba(255, 255, 255, 0.4);
-            animation: fadeInUp 1s ease 0.6s both;
             backdrop-filter: blur(15px);
             font-size: 1.1rem;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -153,6 +160,16 @@
             background: rgba(255, 255, 255, 0.35);
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .linkedin-button {
+            background: rgba(0, 119, 181, 0.9);
+            border: 2px solid rgba(0, 119, 181, 0.6);
+        }
+
+        .linkedin-button:hover {
+            background: rgba(0, 119, 181, 1);
+            border-color: rgba(0, 119, 181, 0.8);
         }
 
         /* Section Styles */
@@ -283,11 +300,11 @@
         }
 
         .airbnb-bg {
-            background: url('/placeholder.svg?height=250&width=450') center/cover;
+            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-12%20at%207.11.44%E2%80%AFpm-WzhpNjaIppf1wIX1tFHYNrQUewiX4W.png') center/cover;
         }
 
         .bahrain-bg {
-            background: url('/placeholder.svg?height=250&width=450') center/cover;
+            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4130.jpg-KeOP7xKG4BryTIR4ZUffIWb7IVUjJn.jpeg') center/cover;
         }
 
         .project-content {
@@ -715,6 +732,11 @@
                 font-size: 1.1rem;
             }
 
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .about-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -772,7 +794,10 @@
                 <h1>Feras Alsadadi</h1>
                 <p class="subtitle">Data Scientist | Data Analyst | Business Analyst</p>
                 <p class="contact-info">Bahraini | ferasalsadadi@gmail.com</p>
-                <a href="#about" class="cta-button">Learn More About Me</a>
+                <div class="hero-buttons">
+                    <a href="#about" class="cta-button">Learn More About Me</a>
+                    <a href="https://www.linkedin.com/in/feras-alsadadi-598682289" target="_blank" class="cta-button linkedin-button">💼 LinkedIn Profile</a>
+                </div>
             </div>
         </div>
     </section>
@@ -896,8 +921,8 @@
                             <span class="tech-tag">Team Collaboration</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">View Analysis</a>
-                            <a href="#" class="project-link secondary">GitHub</a>
+                            <a href="https://drive.google.com/drive/folders/1AIAlMwC16rNASRTJqLauO7yu6_D0bT5p?usp=drive_link" target="_blank" class="project-link">View Analysis</a>
+                            <a href="https://github.com/Feras005/Airbnb_Barcelona" target="_blank" class="project-link secondary">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -914,8 +939,8 @@
                             <span class="tech-tag">Government Data</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">View Dashboard</a>
-                            <a href="#" class="project-link secondary">GitHub</a>
+                            <a href="https://drive.google.com/drive/folders/1AIAlMwC16rNASRTJqLauO7yu6_D0bT5p?usp=drive_link" target="_blank" class="project-link">View Analysis</a>
+                            <a href="https://github.com/Feras005/Bahrain_imports" target="_blank" class="project-link secondary">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -1023,7 +1048,7 @@
                         <h3 style="margin-bottom: 1rem; color: #1e293b; text-align: center;">Let's Connect</h3>
                         <p style="color: #64748b; margin-bottom: 2rem; text-align: center;">I'm always interested in discussing new opportunities, collaborations, or data-related challenges. Feel free to reach out!</p>
                         <div class="social-links">
-                            <a href="#" class="social-link" title="LinkedIn">💼</a>
+                            <a href="https://www.linkedin.com/in/feras-alsadadi-598682289" target="_blank" class="social-link" title="LinkedIn">💼</a>
                             <a href="#" class="social-link" title="GitHub">🐙</a>
                             <a href="mailto:ferasalsadadi@gmail.com" class="social-link" title="Email">📧</a>
                             <a href="#" class="social-link" title="Portfolio">🌐</a>
