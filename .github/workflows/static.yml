@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feras Alsadadi - Data Scientist Portfolio</title>
+    <title>FERAS.EXE - Neural Network Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -12,88 +12,192 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00ffff;
+            overflow-x: hidden;
             line-height: 1.6;
-            color: #333;
-            background-color: #f8fafc;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
+            padding: 0.5rem;
         }
 
-        /* Header */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+        .language-switcher select {
+            background: transparent;
+            border: none;
+            color: #00ffff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .language-switcher select option {
+            background: #000;
+            color: #00ffff;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-spinner {
+            font-size: 4rem;
+            color: #00ffff;
+            animation: pulse 2s infinite;
+            margin-bottom: 2rem;
+        }
+
+        .loading-text {
+            color: #00ffff;
+            margin-bottom: 1rem;
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem auto;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            width: 0%;
+            animation: loading 3s ease-out forwards;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .grid-lines {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        .floating-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ffff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 6s infinite;
+        }
+
+        /* Navigation */
+        .nav {
             position: fixed;
             top: 0;
-            width: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 1rem 0;
         }
 
-        .logo {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
             font-size: 1.5rem;
-            font-weight: bold;
-            color: #1e40af;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
         }
 
         .nav-links {
             display: flex;
-            list-style: none;
             gap: 2rem;
+            list-style: none;
         }
 
         .nav-links a {
+            color: #666;
             text-decoration: none;
-            color: #64748b;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
-        .nav-links a:hover {
-            color: #1e40af;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
         }
 
-        /* Hero Section with Data Science Background */
+        .nav-status {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .nav-status .online {
+            color: #00ff00;
+        }
+
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(30, 64, 175, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%), 
-                        url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/premium_photo-1664297950425-99a968926a74-GNC8Kfyt31ECOhrH0rEZHTWBQK4adY.jpeg') center/cover;
-            color: white;
-            padding: 120px 0 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
             min-height: 100vh;
             display: flex;
             align-items: center;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(30, 64, 175, 0.1);
-            backdrop-filter: blur(1px);
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
         }
 
         .hero-content {
-            position: relative;
-            z-index: 1;
+            max-width: 800px;
+            z-index: 10;
         }
 
         .hero-image {
@@ -102,35 +206,52 @@
             border-radius: 50%;
             margin: 0 auto 2rem;
             background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/personal.JPG-h8GF5if2Sb3zm384LOqco60IqeQlMd.jpeg') center/cover;
-            border: 4px solid rgba(255, 255, 255, 0.4);
-            animation: fadeInUp 1s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 2px solid #00ffff;
+            position: relative;
+            animation: glow-pulse 2s infinite;
         }
 
-        .hero h1 {
-            font-size: 3rem;
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 2px solid #00ffff;
+            border-radius: 50%;
+            animation: ping 2s infinite;
+        }
+
+        .welcome-text {
+            font-size: 1.2rem;
             margin-bottom: 1rem;
-            animation: fadeInUp 1s ease 0.2s both;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-            font-weight: 700;
+            color: #00ffff;
+            min-height: 1.5rem;
         }
 
-        .hero .subtitle {
-            font-size: 1.3rem;
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: bold;
             margin-bottom: 1rem;
-            opacity: 0.95;
-            animation: fadeInUp 1s ease 0.4s both;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-            font-weight: 500;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            animation: title-glow 3s ease-in-out infinite;
         }
 
-        .hero .contact-info {
-            font-size: 1rem;
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #ff00ff;
+            margin-bottom: 1rem;
+        }
+
+        .hero-info {
+            color: #666;
             margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.5s both;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
         }
 
         .hero-buttons {
@@ -138,58 +259,56 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 1s ease 0.6s both;
         }
 
-        .cta-button {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.25);
-            color: white;
-            padding: 15px 35px;
+        .btn {
+            padding: 1rem 2rem;
+            border: 2px solid #00ffff;
+            background: transparent;
+            color: #00ffff;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
             transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(15px);
-            font-size: 1.1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .cta-button:hover {
-            background: rgba(255, 255, 255, 0.35);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        .btn:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 20px #00ffff;
         }
 
-        .linkedin-button {
-            background: rgba(0, 119, 181, 0.9);
-            border: 2px solid rgba(0, 119, 181, 0.6);
+        .btn.secondary {
+            border-color: #ff00ff;
+            color: #ff00ff;
         }
 
-        .linkedin-button:hover {
-            background: rgba(0, 119, 181, 1);
-            border-color: rgba(0, 119, 181, 0.8);
+        .btn.secondary:hover {
+            background: #ff00ff;
+            box-shadow: 0 0 20px #ff00ff;
         }
 
-        /* Section Styles */
-        section {
-            padding: 80px 0;
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
             opacity: 0;
             transform: translateY(50px);
             transition: all 0.8s ease;
         }
 
-        section.visible {
+        .section.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
         .section-title {
-            text-align: center;
             font-size: 2.5rem;
+            text-align: center;
             margin-bottom: 3rem;
-            color: #1e293b;
+            color: #00ffff;
+            text-shadow: 0 0 20px #00ffff;
             position: relative;
         }
 
@@ -199,21 +318,16 @@
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #1e40af, #3b82f6);
-            border-radius: 2px;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
         }
 
         /* About Section */
-        .about {
-            background: white;
-        }
-
-        .about-content {
+        .about-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
             align-items: center;
         }
 
@@ -221,70 +335,157 @@
             width: 100%;
             height: 400px;
             background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/58924b69-f480-4c1f-b67e-d46eba7cadc3.JPG-1apfux2ACFTadUBkX6YhLgPs5qhKbO.jpeg') center/cover;
+            border: 2px solid rgba(0, 255, 255, 0.5);
             border-radius: 10px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
-        .about-text h3 {
-            font-size: 1.5rem;
+        .about-image::after {
+            content: 'SUBJECT_ID: FERAS_001';
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            font-size: 0.8rem;
+            color: #00ffff;
+        }
+
+        .about-content {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .about-content h3 {
+            color: #ff00ff;
             margin-bottom: 1rem;
-            color: #1e40af;
+            font-size: 1.5rem;
         }
 
-        .about-text p {
-            margin-bottom: 2rem;
-            color: #64748b;
-            line-height: 1.8;
+        .about-content p {
+            color: #ccc;
+            margin-bottom: 1rem;
+            line-height: 1.6;
         }
 
-        .skills-list {
+        .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
+            margin-top: 2rem;
         }
 
         .skill-item {
-            background: #eff6ff;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
             padding: 1rem;
-            border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            border-left: 3px solid #1e40af;
+            transition: all 0.3s ease;
         }
 
-        .skill-icon {
-            width: 20px;
-            height: 20px;
-            background: #1e40af;
+        .skill-item:hover {
+            border-color: #00ffff;
+            transform: scale(1.05);
+        }
+
+        .skill-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ffff;
             border-radius: 50%;
+            animation: pulse 2s infinite;
         }
 
-        /* Projects Section */
-        .projects {
-            background: #f8fafc;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 3rem;
-            max-width: 1000px;
+        /* Experience Section */
+        .experience-timeline {
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        .project-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        .experience-item {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
             transition: all 0.3s ease;
-            border-top: 4px solid #1e40af;
+        }
+
+        .experience-item:hover {
+            border-color: #00ffff;
+            transform: translateX(10px);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .experience-title {
+            color: #ff00ff;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-company {
+            color: #00ffff;
+            font-size: 0.9rem;
+        }
+
+        .experience-date {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .experience-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+        }
+
+        .status-completed {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+
+        .status-progress {
+            background: rgba(255, 255, 0, 0.2);
+            color: #ffff00;
+            border: 1px solid #ffff00;
+        }
+
+        .experience-description {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(30, 64, 175, 0.15);
+            border-color: #00ffff;
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
         }
 
         .project-image {
@@ -292,19 +493,34 @@
             height: 250px;
             background-size: cover;
             background-position: center;
+            position: relative;
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: #64748b;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .airbnb-bg {
-            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-12%20at%207.11.44%E2%80%AFpm-WzhpNjaIppf1wIX1tFHYNrQUewiX4W.png') center/cover;
+        .project-card:hover .project-overlay {
+            opacity: 1;
         }
 
-        .bahrain-bg {
-            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4130.jpg-KeOP7xKG4BryTIR4ZUffIWb7IVUjJn.jpeg') center/cover;
+        .project-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid #00ff00;
         }
 
         .project-content {
@@ -312,13 +528,13 @@
         }
 
         .project-title {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: #1e293b;
+            color: #ff00ff;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
         }
 
         .project-description {
-            color: #64748b;
+            color: #ccc;
             margin-bottom: 1.5rem;
             line-height: 1.6;
         }
@@ -331,12 +547,12 @@
         }
 
         .tech-tag {
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 4px 12px;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 500;
+            color: #00ffff;
         }
 
         .project-links {
@@ -345,391 +561,287 @@
         }
 
         .project-link {
-            padding: 10px 20px;
-            background: #1e40af;
-            color: white;
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
             text-decoration: none;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
-            font-weight: 500;
-        }
-
-        .project-link:hover {
-            background: #1d4ed8;
-        }
-
-        .project-link.secondary {
-            background: #64748b;
-        }
-
-        .project-link.secondary:hover {
-            background: #475569;
-        }
-
-        /* Experience Section */
-        .experience {
-            background: white;
-        }
-
-        .experience-timeline {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .experience-item {
-            background: #f8fafc;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            border-left: 4px solid #1e40af;
+            border: 1px solid #00ffff;
+            color: #00ffff;
             transition: all 0.3s ease;
         }
 
-        .experience-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.1);
+        .project-link:hover {
+            background: #00ffff;
+            color: #000;
         }
 
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
+        .project-link.secondary {
+            border-color: #ff00ff;
+            color: #ff00ff;
         }
 
-        .experience-title {
-            font-size: 1.3rem;
-            color: #1e293b;
-            margin-bottom: 0.5rem;
+        .project-link.secondary:hover {
+            background: #ff00ff;
         }
 
-        .experience-company {
-            color: #1e40af;
-            font-weight: 600;
-        }
-
-        .experience-date {
-            color: #64748b;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .experience-description {
-            color: #64748b;
-            line-height: 1.6;
-        }
-
-        /* Skills Section with Logos Only */
-        .skills {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            position: relative;
-        }
-
-        .skills::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/premium_photo-1664297950425-99a968926a74-GNC8Kfyt31ECOhrH0rEZHTWBQK4adY.jpeg') center/cover;
-            opacity: 0.1;
-            z-index: 0;
-        }
-
-        .skills .container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .skills .section-title {
-            color: white;
-        }
-
-        .skills .section-title::after {
-            background: linear-gradient(90deg, #ffffff, #e5e7eb);
-        }
-
-        .skills-grid {
+        /* Skills Section */
+        .skills-categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .skill-category {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
             padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         .skill-category h3 {
-            margin-bottom: 2rem;
-            color: white;
+            color: #ff00ff;
             text-align: center;
-            font-size: 1.3rem;
+            margin-bottom: 2rem;
         }
 
-        .skills-list-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-        }
-
-        .skill-item-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .skill-item-logo:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+        .skill-list {
+            space-y: 1rem;
         }
 
         .skill-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
-        .skill-name-text {
-            color: white;
-            font-size: 0.9rem;
-            font-weight: 500;
+        .skill-logo:hover {
+            border-color: #00ffff;
+            transform: translateX(10px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            min-width: 3rem;
             text-align: center;
         }
 
-        /* Skill Logos */
-        .sql-logo {
-            background: #336791;
-            color: white;
-        }
-
-        .python-logo {
-            background: #3776ab;
-            color: white;
-        }
-
-        .excel-logo {
-            background: #217346;
-            color: white;
-        }
-
-        .powerbi-logo {
-            background: #f2c811;
-            color: #000;
-        }
-
-        .tableau-logo {
-            background: #e97627;
-            color: white;
-        }
-
-        .ml-logo {
-            background: #ff6f00;
-            color: white;
-        }
-
-        .stats-logo {
-            background: #4285f4;
-            color: white;
-        }
-
-        .dashboard-logo {
-            background: #00d4aa;
-            color: white;
-        }
-
-        .hypothesis-logo {
-            background: #8e44ad;
-            color: white;
-        }
-
-        .regression-logo {
-            background: #e74c3c;
-            color: white;
+        .skill-name {
+            color: #00ffff;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         /* Contact Section */
-        .contact {
-            background: #f8fafc;
-        }
-
-        .contact-content {
+        .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 3rem;
         }
 
         .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
+            display: block;
+            color: #00ffff;
             margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #374151;
+            font-size: 0.9rem;
         }
 
         .form-group input,
         .form-group textarea {
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 5px;
+            color: #00ffff;
+            font-family: 'Courier New', monospace;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #1e40af;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-button {
-            background: #1e40af;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .submit-button:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-        }
-
-        .submit-button:active {
-            transform: translateY(0);
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
         }
 
         .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-details {
-            background: white;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
             padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #1e40af;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1rem;
-            color: #64748b;
+            margin-bottom: 1.5rem;
         }
 
         .contact-icon {
             width: 40px;
             height: 40px;
-            background: #eff6ff;
+            border: 1px solid rgba(0, 255, 255, 0.5);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #1e40af;
+            font-size: 1.2rem;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
             justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .social-link {
             width: 50px;
             height: 50px;
-            background: white;
+            border: 2px solid #00ffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            color: #64748b;
+            color: #00ffff;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid #eff6ff;
         }
 
         .social-link:hover {
-            background: #1e40af;
-            color: white;
-            transform: translateY(-2px);
-            border-color: #1e40af;
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 20px #00ffff;
         }
 
-        /* Footer */
-        footer {
-            background: #1e293b;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
+        /* Terminal Mode */
+        .terminal {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 2rem;
+            z-index: 10000;
+            overflow-y: auto;
+        }
+
+        .terminal-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+        }
+
+        .terminal-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .terminal-prompt {
+            color: #00ffff;
+            margin-right: 0.5rem;
+        }
+
+        .terminal-input input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
         }
 
         /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 255, 0.8); }
+        }
+
+        @keyframes ping {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.2); opacity: 0; }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes title-glow {
+            0%, 100% { text-shadow: 0 0 30px rgba(0, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 50px rgba(255, 0, 255, 0.8); }
+        }
+
+        @keyframes grid-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+
+        @keyframes float {
+            0% { 
+                opacity: 0; 
+                transform: translateY(100vh) translateX(0); 
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            10% { 
+                opacity: 1; 
+            }
+            90% { 
+                opacity: 1; 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-100px) translateX(100px); 
             }
         }
 
-        /* Mobile Responsiveness */
+        /* Responsive */
         @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
             .nav-links {
                 display: none;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.1rem;
             }
 
             .hero-buttons {
@@ -737,106 +849,114 @@
                 align-items: center;
             }
 
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .experience-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .skills-list-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            .language-switcher {
+                top: 70px;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">Feras Alsadadi</div>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <select id="languageSelect" onchange="changeLanguage(this.value)">
+            <option value="en">🇺🇸 EN</option>
+            <option value="ar">🇸🇦 AR</option>
+            <option value="es">🇪🇸 ES</option>
+            <option value="fr">🇫🇷 FR</option>
+            <option value="de">🇩🇪 DE</option>
+            <option value="zh">🇨🇳 ZH</option>
+            <option value="ja">🇯🇵 JA</option>
+            <option value="ru">🇷🇺 RU</option>
+        </select>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-spinner">◉</div>
+            <div class="loading-text" data-translate="loading">INITIALIZING NEURAL INTERFACE...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div style="font-size: 0.8rem; color: #666; margin-top: 1rem;" data-translate="loading-sub">Loading quantum data streams...</div>
+        </div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="grid-lines"></div>
+        <div class="floating-particles" id="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">FERAS.EXE</div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" class="nav-link" data-translate="nav-home">HOME</a></li>
+                <li><a href="#about" class="nav-link" data-translate="nav-about">PROFILE</a></li>
+                <li><a href="#experience" class="nav-link" data-translate="nav-experience">HISTORY</a></li>
+                <li><a href="#projects" class="nav-link" data-translate="nav-projects">ARCHIVES</a></li>
+                <li><a href="#skills" class="nav-link" data-translate="nav-skills">ABILITIES</a></li>
+                <li><a href="#contact" class="nav-link" data-translate="nav-contact">CONNECT</a></li>
             </ul>
-        </nav>
-    </header>
+            <div class="nav-status">
+                <span data-translate="status">STATUS:</span> <span class="online" data-translate="online">ONLINE</span>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-image"></div>
-                <h1>Feras Alsadadi</h1>
-                <p class="subtitle">Data Scientist | Data Analyst | Business Analyst</p>
-                <p class="contact-info">Bahraini | ferasalsadadi@gmail.com</p>
-                <div class="hero-buttons">
-                    <a href="#about" class="cta-button">Learn More About Me</a>
-                    <a href="https://www.linkedin.com/in/feras-alsadadi-598682289" target="_blank" class="cta-button linkedin-button">💼 LinkedIn Profile</a>
-                </div>
+        <div class="hero-content">
+            <div class="hero-image"></div>
+            <div class="welcome-text" id="welcomeText"></div>
+            <h1 class="hero-title">FERAS ALSADADI</h1>
+            <div class="hero-subtitle" data-translate="hero-subtitle">DATA_SCIENTIST.exe | ANALYST.dll | STRATEGIST.sys</div>
+            <div class="hero-info" data-translate="hero-info">LOCATION: BAHRAIN_NODE | STATUS: ACTIVE | EMAIL: ferasalsadadi@gmail.com</div>
+            <div class="hero-buttons">
+                <a href="#about" class="btn" data-translate="btn-scan">INITIALIZE_SCAN</a>
+                <a href="https://www.linkedin.com/in/feras-alsadadi-598682289" target="_blank" class="btn secondary" data-translate="btn-linkedin">CONNECT_LINKEDIN</a>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
+    <section id="about" class="section">
+        <h2 class="section-title" data-translate="about-title">PROFILE_ANALYSIS.exe</h2>
+        <div class="about-grid">
+            <div class="about-image"></div>
             <div class="about-content">
-                <div class="about-image"></div>
-                <div class="about-text">
-                    <h3>Aspiring Data Scientist</h3>
-                    <p>Aspiring data scientist with a strong foundation in business, statistics, and problem-solving. Skilled in Excel, PowerPoint, SQL, data visualization, and business simulations. Experienced in applying analytical and creative thinking to real-world challenges across business, tech, and marketing.</p>
-                    <p>Passionate about uncovering insights through data to support smarter decision-making. Committed to continuous learning and meaningful impact through analytics.</p>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <div class="skill-icon"></div>
-                            <span>Python Programming</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"></div>
-                            <span>SQL Database Management</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"></div>
-                            <span>Excel Advanced Analytics</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"></div>
-                            <span>Power BI Dashboards</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"></div>
-                            <span>Tableau Visualization</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon"></div>
-                            <span>Machine Learning</span>
-                        </div>
+                <h3 data-translate="about-subtitle">NEURAL_PROFILE.dat</h3>
+                <p data-translate="about-p1">&gt; Aspiring data scientist with quantum-level analytical capabilities. Specialized in pattern recognition across multidimensional business datasets.</p>
+                <p data-translate="about-p2">&gt; Advanced proficiency in statistical algorithms, machine learning protocols, and business intelligence systems. Experienced in real-world data mining operations.</p>
+                <p data-translate="about-p3">&gt; Mission: Transform raw data streams into actionable intelligence for strategic decision-making processes.</p>
+                
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-dot"></div>
+                        <span>PYTHON_CORE.py</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-dot"></div>
+                        <span>SQL_ENGINE.db</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-dot"></div>
+                        <span>EXCEL_MATRIX.xlsx</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-dot"></div>
+                        <span>POWERBI_VISUAL.pbix</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-dot"></div>
+                        <span>TABLEAU_RENDER.twb</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-dot"></div>
+                        <span>ML_ALGORITHMS.ai</span>
                     </div>
                 </div>
             </div>
@@ -844,168 +964,193 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">Experience & Education</h2>
-            <div class="experience-timeline">
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <div class="experience-title">Data Analytics Immersive Bootcamp Fellow</div>
-                            <div class="experience-company">General Assembly, Bahrain</div>
-                        </div>
-                        <div class="experience-date">Jun 2025 - Sep 2025</div>
+    <section id="experience" class="section">
+        <h2 class="section-title" data-translate="experience-title">EXPERIENCE_LOG.hist</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">DATA_ANALYTICS_BOOTCAMP.exe</div>
+                        <div class="experience-company">GENERAL_ASSEMBLY_NODE</div>
                     </div>
-                    <div class="experience-description">
-                        Intensive bootcamp focusing on data analytics, visualization, and machine learning. Completed comprehensive projects using Excel, Power BI, Python, and SQL to analyze real-world datasets and deliver actionable business insights.
+                    <div>
+                        <div class="experience-date">2025.06 - 2025.09</div>
+                        <div class="experience-status status-completed" data-translate="status-completed">COMPLETED</div>
                     </div>
                 </div>
-                
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <div class="experience-title">Bachelor of Science - Data Science & Business Analytics</div>
-                            <div class="experience-company">University of London</div>
-                        </div>
+                <div class="experience-description" data-translate="exp1-desc">
+                    &gt; Intensive neural training in advanced analytics protocols. Mastered Excel, Power BI, Python, and SQL for real-world data processing missions.
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">BACHELOR_PROGRAM.edu</div>
+                        <div class="experience-company">UNIVERSITY_OF_LONDON_SYSTEM</div>
+                    </div>
+                    <div>
                         <div class="experience-date">2024 - 2027</div>
-                    </div>
-                    <div class="experience-description">
-                        Currently pursuing a comprehensive degree combining data science methodologies with business analytics applications. Focusing on statistical analysis, machine learning, and business intelligence.
+                        <div class="experience-status status-progress" data-translate="status-progress">IN_PROGRESS</div>
                     </div>
                 </div>
+                <div class="experience-description" data-translate="exp2-desc">
+                    &gt; Comprehensive data science and business analytics curriculum. Specializing in statistical analysis, machine learning, and business intelligence.
+                </div>
+            </div>
 
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <div class="experience-title">Stock Trading Simulation</div>
-                            <div class="experience-company">AmplifyME Finance Accelerator</div>
-                        </div>
-                        <div class="experience-date">May 2025</div>
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">TRADING_SIMULATION.sim</div>
+                        <div class="experience-company">AMPLIFYME_FINANCE_CORE</div>
                     </div>
-                    <div class="experience-description">
-                        Participated in advanced trading simulation used by global investment banks. Managed a $20 million simulated equity portfolio, generating over $3 million in profit within 30 minutes through strategic analysis and trading decisions.
+                    <div>
+                        <div class="experience-date">2025.05</div>
+                        <div class="experience-status status-completed" data-translate="status-success">MISSION_SUCCESS</div>
                     </div>
                 </div>
+                <div class="experience-description" data-translate="exp3-desc">
+                    &gt; Advanced trading simulation protocol. Managed $20M portfolio, generated $3M+ profit through strategic algorithmic analysis.
+                </div>
+            </div>
 
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <div class="experience-title">Machine Learning Pipeline Project</div>
-                            <div class="experience-company">Coursera Project Network</div>
-                        </div>
-                        <div class="experience-date">July 2025</div>
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">ML_PIPELINE_PROJECT.ai</div>
+                        <div class="experience-company">COURSERA_NETWORK</div>
                     </div>
-                    <div class="experience-description">
-                        Completed hands-on project building and automating machine learning workflows using Dataiku. Gained skills in data wrangling, feature engineering, model training, and evaluation.
+                    <div>
+                        <div class="experience-date">2025.07</div>
+                        <div class="experience-status status-completed" data-translate="status-deployed">DEPLOYED</div>
                     </div>
+                </div>
+                <div class="experience-description" data-translate="exp4-desc">
+                    &gt; Automated machine learning workflow construction using Dataiku platform. Advanced data processing and model optimization.
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image airbnb-bg"></div>
-                    <div class="project-content">
-                        <h3 class="project-title">Airbnb Market Analysis (Barcelona)</h3>
-                        <p class="project-description">Collaborated in a team to complete comprehensive data analysis using Airbnb datasets from InsideAirbnb. The project involved cleaning, organizing, and analyzing Barcelona-specific Airbnb listings using Microsoft Excel. Delivered actionable insights through visualizations, statistical summaries, and group presentation.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Excel</span>
-                            <span class="tech-tag">Data Cleaning</span>
-                            <span class="tech-tag">Statistical Analysis</span>
-                            <span class="tech-tag">Data Visualization</span>
-                            <span class="tech-tag">Team Collaboration</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://drive.google.com/drive/folders/1AIAlMwC16rNASRTJqLauO7yu6_D0bT5p?usp=drive_link" target="_blank" class="project-link">View Analysis</a>
-                            <a href="https://github.com/Feras005/Airbnb_Barcelona" target="_blank" class="project-link secondary">GitHub</a>
+    <section id="projects" class="section">
+        <h2 class="section-title" data-translate="projects-title">PROJECT_ARCHIVES.vault</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-12%20at%207.11.44%E2%80%AFpm-WzhpNjaIppf1wIX1tFHYNrQUewiX4W.png')">
+                    <div class="project-overlay">
+                        <div style="text-align: center;">
+                            <div style="color: #00ffff; font-size: 1.2rem; margin-bottom: 0.5rem;" data-translate="access-granted">ACCESS_GRANTED</div>
+                            <div style="width: 60px; height: 2px; background: #00ffff; margin: 0 auto; animation: pulse 1s infinite;"></div>
                         </div>
                     </div>
+                    <div class="project-status" data-translate="status-archived">ARCHIVED</div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image bahrain-bg"></div>
-                    <div class="project-content">
-                        <h3 class="project-title">Bahrain Imports Dashboard</h3>
-                        <p class="project-description">As part of the collaborative team project "Manamas-log," analyzed Bahrain's import data over the last five years using datasets from data.gov.bh. Focused on foodstuff imports, identifying key trends, supply chain dynamics, and market opportunities. Developed interactive Power BI dashboard for effective visual storytelling.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">Data Analysis</span>
-                            <span class="tech-tag">Dashboard Design</span>
-                            <span class="tech-tag">Supply Chain Analysis</span>
-                            <span class="tech-tag">Government Data</span>
+                <div class="project-content">
+                    <h3 class="project-title">BARCELONA_ANALYSIS.prj</h3>
+                    <p class="project-description" data-translate="project1-desc">&gt; Advanced Airbnb data mining operation across Barcelona's neural network. Team-based intelligence gathering using Excel matrix calculations.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">EXCEL.exe</span>
+                        <span class="tech-tag">DATA_CLEAN.dll</span>
+                        <span class="tech-tag">STATS_ANALYSIS.py</span>
+                        <span class="tech-tag">VISUALIZATION.js</span>
+                        <span class="tech-tag">TEAM_PROTOCOL.net</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/drive/folders/1AIAlMwC16rNASRTJqLauO7yu6_D0bT5p?usp=drive_link" target="_blank" class="project-link" data-translate="access-files">ACCESS_FILES</a>
+                        <a href="https://github.com/Feras005/Airbnb_Barcelona" target="_blank" class="project-link secondary" data-translate="view-source">VIEW_SOURCE</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_4130.jpg-KeOP7xKG4BryTIR4ZUffIWb7IVUjJn.jpeg')">
+                    <div class="project-overlay">
+                        <div style="text-align: center;">
+                            <div style="color: #00ffff; font-size: 1.2rem; margin-bottom: 0.5rem;" data-translate="access-granted">ACCESS_GRANTED</div>
+                            <div style="width: 60px; height: 2px; background: #00ffff; margin: 0 auto; animation: pulse 1s infinite;"></div>
                         </div>
-                        <div class="project-links">
-                            <a href="https://drive.google.com/drive/folders/1AIAlMwC16rNASRTJqLauO7yu6_D0bT5p?usp=drive_link" target="_blank" class="project-link">View Analysis</a>
-                            <a href="https://github.com/Feras005/Bahrain_imports" target="_blank" class="project-link secondary">GitHub</a>
-                        </div>
+                    </div>
+                    <div class="project-status" data-translate="status-deployed">DEPLOYED</div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">BAHRAIN_IMPORTS.sys</h3>
+                    <p class="project-description" data-translate="project2-desc">&gt; Government data infiltration and analysis. Five-year import trend analysis with interactive Power BI dashboard deployment.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">POWERBI.pbix</span>
+                        <span class="tech-tag">DATA_ANALYSIS.r</span>
+                        <span class="tech-tag">DASHBOARD.ui</span>
+                        <span class="tech-tag">SUPPLY_CHAIN.ai</span>
+                        <span class="tech-tag">GOV_DATA.db</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/drive/folders/1AIAlMwC16rNASRTJqLauO7yu6_D0bT5p?usp=drive_link" target="_blank" class="project-link" data-translate="access-files">ACCESS_FILES</a>
+                        <a href="https://github.com/Feras005/Bahrain_imports" target="_blank" class="project-link secondary" data-translate="view-source">VIEW_SOURCE</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section with Logos Only -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Data Analytics & Handling</h3>
-                    <div class="skills-list-grid">
-                        <div class="skill-item-logo">
-                            <div class="skill-logo sql-logo">SQL</div>
-                            <div class="skill-name-text">SQL</div>
-                        </div>
-                        <div class="skill-item-logo">
-                            <div class="skill-logo python-logo">PY</div>
-                            <div class="skill-name-text">Python</div>
-                        </div>
-                        <div class="skill-item-logo">
-                            <div class="skill-logo excel-logo">XL</div>
-                            <div class="skill-name-text">Excel</div>
-                        </div>
-                        <div class="skill-item-logo">
-                            <div class="skill-logo ml-logo">ML</div>
-                            <div class="skill-name-text">Machine Learning</div>
-                        </div>
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <h2 class="section-title" data-translate="skills-title">ABILITY_MATRIX.sys</h2>
+        <div class="skills-categories">
+            <div class="skill-category">
+                <h3 data-translate="skills-data">DATA_PROCESSING.core</h3>
+                <div class="skill-list">
+                    <div class="skill-logo">
+                        <span class="skill-icon">🗃️</span>
+                        <span class="skill-name">SQL_ENGINE</span>
+                    </div>
+                    <div class="skill-logo">
+                        <span class="skill-icon">🐍</span>
+                        <span class="skill-name">PYTHON_CORE</span>
+                    </div>
+                    <div class="skill-logo">
+                        <span class="skill-icon">📊</span>
+                        <span class="skill-name">EXCEL_MATRIX</span>
+                    </div>
+                    <div class="skill-logo">
+                        <span class="skill-icon">🤖</span>
+                        <span class="skill-name">ML_ALGORITHMS</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>Data Visualization</h3>
-                    <div class="skills-list-grid">
-                        <div class="skill-item-logo">
-                            <div class="skill-logo powerbi-logo">BI</div>
-                            <div class="skill-name-text">Power BI</div>
-                        </div>
-                        <div class="skill-item-logo">
-                            <div class="skill-logo tableau-logo">TB</div>
-                            <div class="skill-name-text">Tableau</div>
-                        </div>
-                        <div class="skill-item-logo">
-                            <div class="skill-logo dashboard-logo">DB</div>
-                            <div class="skill-name-text">Dashboard Design</div>
-                        </div>
+            </div>
+
+            <div class="skill-category">
+                <h3 data-translate="skills-visual">VISUAL_INTERFACE.ui</h3>
+                <div class="skill-list">
+                    <div class="skill-logo">
+                        <span class="skill-icon">📈</span>
+                        <span class="skill-name">POWERBI_RENDER</span>
+                    </div>
+                    <div class="skill-logo">
+                        <span class="skill-icon">📊</span>
+                        <span class="skill-name">TABLEAU_DISPLAY</span>
+                    </div>
+                    <div class="skill-logo">
+                        <span class="skill-icon">🎨</span>
+                        <span class="skill-name">DASHBOARD_DESIGN</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>Mathematics & Statistics</h3>
-                    <div class="skills-list-grid">
-                        <div class="skill-item-logo">
-                            <div class="skill-logo stats-logo">ST</div>
-                            <div class="skill-name-text">Statistical Analysis</div>
-                        </div>
-                        <div class="skill-item-logo">
-                            <div class="skill-logo hypothesis-logo">HT</div>
-                            <div class="skill-name-text">Hypothesis Testing</div>
-                        </div>
-                        <div class="skill-item-logo">
-                            <div class="skill-logo regression-logo">RA</div>
-                            <div class="skill-name-text">Regression Analysis</div>
-                        </div>
+            </div>
+
+            <div class="skill-category">
+                <h3 data-translate="skills-stats">STATISTICAL_ANALYSIS.math</h3>
+                <div class="skill-list">
+                    <div class="skill-logo">
+                        <span class="skill-icon">📉</span>
+                        <span class="skill-name">STATS_PROCESSOR</span>
+                    </div>
+                    <div class="skill-logo">
+                        <span class="skill-icon">🔬</span>
+                        <span class="skill-name">HYPOTHESIS_TEST</span>
+                    </div>
+                    <div class="skill-logo">
+                        <span class="skill-icon">📈</span>
+                        <span class="skill-name">REGRESSION_MODEL</span>
                     </div>
                 </div>
             </div>
@@ -1013,110 +1158,766 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <form class="contact-form" onsubmit="sendEmail(event)">
+    <section id="contact" class="section">
+        <h2 class="section-title" data-translate="contact-title">COMMUNICATION_PROTOCOL.net</h2>
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h3 style="color: #ff00ff; margin-bottom: 1.5rem;" data-translate="contact-form-title">SEND_MESSAGE.exe</h3>
+                <form onsubmit="sendMessage(event)">
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <label data-translate="form-name">USER_NAME:</label>
+                        <input type="text" name="name" data-translate="form-name-placeholder" placeholder="Enter identification..." required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                        <label data-translate="form-email">EMAIL_ADDRESS:</label>
+                        <input type="email" name="email" placeholder="user@domain.net" required>
                     </div>
                     <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
+                        <label data-translate="form-message">MESSAGE_DATA:</label>
+                        <textarea name="message" rows="5" data-translate="form-message-placeholder" placeholder="Transmit your message..." required></textarea>
                     </div>
-                    <button type="submit" class="submit-button">📧 Send Email</button>
+                    <button type="submit" class="btn" style="width: 100%;" data-translate="form-submit">TRANSMIT_MESSAGE</button>
                 </form>
-                <div class="contact-info">
-                    <div class="contact-details">
-                        <h3 style="margin-bottom: 1.5rem; color: #1e293b;">Contact Information</h3>
-                        <div class="contact-item">
-                            <div class="contact-icon">📧</div>
-                            <span>ferasalsadadi@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">🌍</div>
-                            <span>Bahrain</span>
-                        </div>
-                    </div>
+            </div>
+
+            <div class="contact-info">
+                <h3 style="color: #ff00ff; margin-bottom: 1.5rem;" data-translate="contact-info-title">CONNECTION_INFO.dat</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
                     <div>
-                        <h3 style="margin-bottom: 1rem; color: #1e293b; text-align: center;">Let's Connect</h3>
-                        <p style="color: #64748b; margin-bottom: 2rem; text-align: center;">I'm always interested in discussing new opportunities, collaborations, or data-related challenges. Feel free to reach out!</p>
-                        <div class="social-links">
-                            <a href="https://www.linkedin.com/in/feras-alsadadi-598682289" target="_blank" class="social-link" title="LinkedIn">💼</a>
-                            <a href="#" class="social-link" title="GitHub">🐙</a>
-                            <a href="mailto:ferasalsadadi@gmail.com" class="social-link" title="Email">📧</a>
-                            <a href="#" class="social-link" title="Portfolio">🌐</a>
-                        </div>
+                        <div style="color: #666; font-size: 0.8rem;" data-translate="email-node">EMAIL_NODE:</div>
+                        <div>ferasalsadadi@gmail.com</div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">🌍</div>
+                    <div>
+                        <div style="color: #666; font-size: 0.8rem;" data-translate="location-node">LOCATION_NODE:</div>
+                        <div data-translate="location">BAHRAIN_SECTOR</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4 style="color: #ff00ff; text-align: center; margin-bottom: 1rem;" data-translate="network-links">NETWORK_LINKS.net</h4>
+                    <p style="color: #666; text-align: center; margin-bottom: 1.5rem; font-size: 0.9rem;" data-translate="contact-ready">
+                        Ready to establish secure connection for collaborative data missions.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/feras-alsadadi-598682289" target="_blank" class="social-link">💼</a>
+                        <a href="mailto:ferasalsadadi@gmail.com" class="social-link">📧</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Feras Alsadadi. All rights reserved. | Data Scientist Portfolio</p>
+    <!-- Terminal Mode -->
+    <div class="terminal" id="terminal" style="display: none;">
+        <div class="terminal-content">
+            <div id="terminalHistory">
+                <div class="terminal-line">FERAS_TERMINAL v2.1.0 - Neural Interface Activated</div>
+                <div class="terminal-line" data-translate="terminal-help">Type 'help' for available commands</div>
+                <div class="terminal-line"></div>
+            </div>
+            <div class="terminal-input">
+                <span class="terminal-prompt">FERAS@NEURAL:~$ </span>
+                <input type="text" id="terminalInput" autocomplete="off">
+                <span class="cursor">|</span>
+            </div>
         </div>
-    </footer>
+    </div>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        // Translation data
+        const translations = {
+            en: {
+                loading: "INITIALIZING NEURAL INTERFACE...",
+                "loading-sub": "Loading quantum data streams...",
+                "nav-home": "HOME",
+                "nav-about": "PROFILE",
+                "nav-experience": "HISTORY",
+                "nav-projects": "ARCHIVES",
+                "nav-skills": "ABILITIES",
+                "nav-contact": "CONNECT",
+                status: "STATUS:",
+                online: "ONLINE",
+                "hero-subtitle": "DATA_SCIENTIST.exe | ANALYST.dll | STRATEGIST.sys",
+                "hero-info": "LOCATION: BAHRAIN_NODE | STATUS: ACTIVE | EMAIL: ferasalsadadi@gmail.com",
+                "btn-scan": "INITIALIZE_SCAN",
+                "btn-linkedin": "CONNECT_LINKEDIN",
+                "about-title": "PROFILE_ANALYSIS.exe",
+                "about-subtitle": "NEURAL_PROFILE.dat",
+                "about-p1": "> Aspiring data scientist with quantum-level analytical capabilities. Specialized in pattern recognition across multidimensional business datasets.",
+                "about-p2": "> Advanced proficiency in statistical algorithms, machine learning protocols, and business intelligence systems. Experienced in real-world data mining operations.",
+                "about-p3": "> Mission: Transform raw data streams into actionable intelligence for strategic decision-making processes.",
+                "experience-title": "EXPERIENCE_LOG.hist",
+                "status-completed": "COMPLETED",
+                "status-progress": "IN_PROGRESS",
+                "status-success": "MISSION_SUCCESS",
+                "status-deployed": "DEPLOYED",
+                "exp1-desc": "> Intensive neural training in advanced analytics protocols. Mastered Excel, Power BI, Python, and SQL for real-world data processing missions.",
+                "exp2-desc": "> Comprehensive data science and business analytics curriculum. Specializing in statistical analysis, machine learning, and business intelligence.",
+                "exp3-desc": "> Advanced trading simulation protocol. Managed $20M portfolio, generated $3M+ profit through strategic algorithmic analysis.",
+                "exp4-desc": "> Automated machine learning workflow construction using Dataiku platform. Advanced data processing and model optimization.",
+                "projects-title": "PROJECT_ARCHIVES.vault",
+                "access-granted": "ACCESS_GRANTED",
+                "status-archived": "ARCHIVED",
+                "project1-desc": "> Advanced Airbnb data mining operation across Barcelona's neural network. Team-based intelligence gathering using Excel matrix calculations.",
+                "project2-desc": "> Government data infiltration and analysis. Five-year import trend analysis with interactive Power BI dashboard deployment.",
+                "access-files": "ACCESS_FILES",
+                "view-source": "VIEW_SOURCE",
+                "skills-title": "ABILITY_MATRIX.sys",
+                "skills-data": "DATA_PROCESSING.core",
+                "skills-visual": "VISUAL_INTERFACE.ui",
+                "skills-stats": "STATISTICAL_ANALYSIS.math",
+                "contact-title": "COMMUNICATION_PROTOCOL.net",
+                "contact-form-title": "SEND_MESSAGE.exe",
+                "form-name": "USER_NAME:",
+                "form-name-placeholder": "Enter identification...",
+                "form-email": "EMAIL_ADDRESS:",
+                "form-message": "MESSAGE_DATA:",
+                "form-message-placeholder": "Transmit your message...",
+                "form-submit": "TRANSMIT_MESSAGE",
+                "contact-info-title": "CONNECTION_INFO.dat",
+                "email-node": "EMAIL_NODE:",
+                "location-node": "LOCATION_NODE:",
+                location: "BAHRAIN_SECTOR",
+                "network-links": "NETWORK_LINKS.net",
+                "contact-ready": "Ready to establish secure connection for collaborative data missions.",
+                "terminal-help": "Type 'help' for available commands",
+                "welcome-message": "ACCESS GRANTED: Welcome to Feras' Neural Network Portfolio"
+            },
+            ar: {
+                loading: "تهيئة الواجهة العصبية...",
+                "loading-sub": "تحميل تدفقات البيانات الكمية...",
+                "nav-home": "الرئيسية",
+                "nav-about": "الملف الشخصي",
+                "nav-experience": "التاريخ",
+                "nav-projects": "الأرشيف",
+                "nav-skills": "القدرات",
+                "nav-contact": "الاتصال",
+                status: "الحالة:",
+                online: "متصل",
+                "hero-subtitle": "عالم_البيانات.exe | محلل.dll | استراتيجي.sys",
+                "hero-info": "الموقع: عقدة_البحرين | الحالة: نشط | البريد: ferasalsadadi@gmail.com",
+                "btn-scan": "بدء_المسح",
+                "btn-linkedin": "ربط_لينكدإن",
+                "about-title": "تحليل_الملف_الشخصي.exe",
+                "about-subtitle": "الملف_العصبي.dat",
+                "about-p1": "> عالم بيانات طموح بقدرات تحليلية على المستوى الكمي. متخصص في التعرف على الأنماط عبر مجموعات البيانات التجارية متعددة الأبعاد.",
+                "about-p2": "> إتقان متقدم في الخوارزميات الإحصائية وبروتوكولات التعلم الآلي وأنظمة ذكاء الأعمال. خبرة في عمليات استخراج البيانات الواقعية.",
+                "about-p3": "> المهمة: تحويل تدفقات البيانات الخام إلى ذكاء قابل للتنفيذ لعمليات اتخاذ القرارات الاستراتيجية.",
+                "experience-title": "سجل_الخبرة.hist",
+                "status-completed": "مكتمل",
+                "status-progress": "قيد_التقدم",
+                "status-success": "نجح_المهمة",
+                "status-deployed": "منشور",
+                "exp1-desc": "> تدريب عصبي مكثف في بروتوكولات التحليلات المتقدمة. إتقان Excel و Power BI و Python و SQL لمهام معالجة البيانات الواقعية.",
+                "exp2-desc": "> منهج شامل لعلوم البيانات وتحليلات الأعمال. التخصص في التحليل الإحصائي والتعلم الآلي وذكاء الأعمال.",
+                "exp3-desc": "> بروتوكول محاكاة التداول المتقدم. إدارة محفظة بقيمة 20 مليون دولار، وتحقيق أرباح تزيد عن 3 ملايين دولار من خلال التحليل الخوارزمي الاستراتيجي.",
+                "exp4-desc": "> بناء سير عمل التعلم الآلي الآلي باستخدام منصة Dataiku. معالجة البيانات المتقدمة وتحسين النماذج.",
+                "projects-title": "أرشيف_المشاريع.vault",
+                "access-granted": "تم_منح_الوصول",
+                "status-archived": "مؤرشف",
+                "project1-desc": "> عملية استخراج بيانات Airbnb المتقدمة عبر الشبكة العصبية لبرشلونة. جمع المعلومات الاستخبارية القائم على الفريق باستخدام حسابات مصفوفة Excel.",
+                "project2-desc": "> تسلل وتحليل البيانات الحكومية. تحليل اتجاهات الاستيراد لمدة خمس سنوات مع نشر لوحة معلومات Power BI التفاعلية.",
+                "access-files": "الوصول_للملفات",
+                "view-source": "عرض_المصدر",
+                "skills-title": "مصفوفة_القدرات.sys",
+                "skills-data": "معالجة_البيانات.core",
+                "skills-visual": "الواجهة_المرئية.ui",
+                "skills-stats": "التحليل_الإحصائي.math",
+                "contact-title": "بروتوكول_الاتصال.net",
+                "contact-form-title": "إرسال_رسالة.exe",
+                "form-name": "اسم_المستخدم:",
+                "form-name-placeholder": "أدخل الهوية...",
+                "form-email": "عنوان_البريد:",
+                "form-message": "بيانات_الرسالة:",
+                "form-message-placeholder": "أرسل رسالتك...",
+                "form-submit": "إرسال_الرسالة",
+                "contact-info-title": "معلومات_الاتصال.dat",
+                "email-node": "عقدة_البريد:",
+                "location-node": "عقدة_الموقع:",
+                location: "قطاع_البحرين",
+                "network-links": "روابط_الشبكة.net",
+                "contact-ready": "جاهز لإنشاء اتصال آمن لمهام البيانات التعاونية.",
+                "terminal-help": "اكتب 'help' للحصول على الأوامر المتاحة",
+                "welcome-message": "تم منح الوصول: مرحباً بك في محفظة فراس العصبية"
+            },
+            es: {
+                loading: "INICIALIZANDO INTERFAZ NEURAL...",
+                "loading-sub": "Cargando flujos de datos cuánticos...",
+                "nav-home": "INICIO",
+                "nav-about": "PERFIL",
+                "nav-experience": "HISTORIAL",
+                "nav-projects": "ARCHIVOS",
+                "nav-skills": "HABILIDADES",
+                "nav-contact": "CONECTAR",
+                status: "ESTADO:",
+                online: "EN LÍNEA",
+                "hero-subtitle": "CIENTÍFICO_DATOS.exe | ANALISTA.dll | ESTRATEGA.sys",
+                "hero-info": "UBICACIÓN: NODO_BAHRÉIN | ESTADO: ACTIVO | EMAIL: ferasalsadadi@gmail.com",
+                "btn-scan": "INICIALIZAR_ESCANEO",
+                "btn-linkedin": "CONECTAR_LINKEDIN",
+                "about-title": "ANÁLISIS_PERFIL.exe",
+                "about-subtitle": "PERFIL_NEURAL.dat",
+                "about-p1": "> Científico de datos aspirante con capacidades analíticas de nivel cuántico. Especializado en reconocimiento de patrones en conjuntos de datos empresariales multidimensionales.",
+                "about-p2": "> Competencia avanzada en algoritmos estadísticos, protocolos de aprendizaje automático y sistemas de inteligencia empresarial. Experiencia en operaciones de minería de datos del mundo real.",
+                "about-p3": "> Misión: Transformar flujos de datos sin procesar en inteligencia accionable para procesos de toma de decisiones estratégicas.",
+                "experience-title": "REGISTRO_EXPERIENCIA.hist",
+                "status-completed": "COMPLETADO",
+                "status-progress": "EN_PROGRESO",
+                "status-success": "MISIÓN_EXITOSA",
+                "status-deployed": "DESPLEGADO",
+                "exp1-desc": "> Entrenamiento neural intensivo en protocolos de análisis avanzados. Dominio de Excel, Power BI, Python y SQL para misiones de procesamiento de datos del mundo real.",
+                "exp2-desc": "> Currículo integral de ciencia de datos y análisis empresarial. Especialización en análisis estadístico, aprendizaje automático e inteligencia empresarial.",
+                "exp3-desc": "> Protocolo de simulación de trading avanzado. Gestión de cartera de $20M, generación de más de $3M en ganancias a través de análisis algorítmico estratégico.",
+                "exp4-desc": "> Construcción de flujo de trabajo de aprendizaje automático automatizado usando la plataforma Dataiku. Procesamiento de datos avanzado y optimización de modelos.",
+                "projects-title": "ARCHIVO_PROYECTOS.vault",
+                "access-granted": "ACCESO_CONCEDIDO",
+                "status-archived": "ARCHIVADO",
+                "project1-desc": "> Operación avanzada de minería de datos de Airbnb a través de la red neural de Barcelona. Recopilación de inteligencia basada en equipo usando cálculos de matriz Excel.",
+                "project2-desc": "> Infiltración y análisis de datos gubernamentales. Análisis de tendencias de importación de cinco años con despliegue de dashboard interactivo de Power BI.",
+                "access-files": "ACCEDER_ARCHIVOS",
+                "view-source": "VER_FUENTE",
+                "skills-title": "MATRIZ_HABILIDADES.sys",
+                "skills-data": "PROCESAMIENTO_DATOS.core",
+                "skills-visual": "INTERFAZ_VISUAL.ui",
+                "skills-stats": "ANÁLISIS_ESTADÍSTICO.math",
+                "contact-title": "PROTOCOLO_COMUNICACIÓN.net",
+                "contact-form-title": "ENVIAR_MENSAJE.exe",
+                "form-name": "NOMBRE_USUARIO:",
+                "form-name-placeholder": "Ingrese identificación...",
+                "form-email": "DIRECCIÓN_EMAIL:",
+                "form-message": "DATOS_MENSAJE:",
+                "form-message-placeholder": "Transmita su mensaje...",
+                "form-submit": "TRANSMITIR_MENSAJE",
+                "contact-info-title": "INFO_CONEXIÓN.dat",
+                "email-node": "NODO_EMAIL:",
+                "location-node": "NODO_UBICACIÓN:",
+                location: "SECTOR_BAHRÉIN",
+                "network-links": "ENLACES_RED.net",
+                "contact-ready": "Listo para establecer conexión segura para misiones de datos colaborativas.",
+                "terminal-help": "Escriba 'help' para comandos disponibles",
+                "welcome-message": "ACCESO CONCEDIDO: Bienvenido al Portafolio de Red Neural de Feras"
+            },
+            fr: {
+                loading: "INITIALISATION INTERFACE NEURALE...",
+                "loading-sub": "Chargement des flux de données quantiques...",
+                "nav-home": "ACCUEIL",
+                "nav-about": "PROFIL",
+                "nav-experience": "HISTORIQUE",
+                "nav-projects": "ARCHIVES",
+                "nav-skills": "CAPACITÉS",
+                "nav-contact": "CONNECTER",
+                status: "STATUT:",
+                online: "EN LIGNE",
+                "hero-subtitle": "SCIENTIFIQUE_DONNÉES.exe | ANALYSTE.dll | STRATÈGE.sys",
+                "hero-info": "LOCALISATION: NŒUD_BAHREÏN | STATUT: ACTIF | EMAIL: ferasalsadadi@gmail.com",
+                "btn-scan": "INITIALISER_SCAN",
+                "btn-linkedin": "CONNECTER_LINKEDIN",
+                "about-title": "ANALYSE_PROFIL.exe",
+                "about-subtitle": "PROFIL_NEURAL.dat",
+                "about-p1": "> Scientifique des données aspirant avec des capacités analytiques de niveau quantique. Spécialisé dans la reconnaissance de motifs sur des ensembles de données commerciales multidimensionnelles.",
+                "about-p2": "> Compétence avancée en algorithmes statistiques, protocoles d'apprentissage automatique et systèmes d'intelligence d'affaires. Expérience dans les opérations d'extraction de données du monde réel.",
+                "about-p3": "> Mission: Transformer les flux de données brutes en intelligence exploitable pour les processus de prise de décision stratégique.",
+                "experience-title": "JOURNAL_EXPÉRIENCE.hist",
+                "status-completed": "TERMINÉ",
+                "status-progress": "EN_COURS",
+                "status-success": "MISSION_RÉUSSIE",
+                "status-deployed": "DÉPLOYÉ",
+                "exp1-desc": "> Formation neurale intensive en protocoles d'analyse avancés. Maîtrise d'Excel, Power BI, Python et SQL pour les missions de traitement de données du monde réel.",
+                "exp2-desc": "> Curriculum complet en science des données et analyse d'affaires. Spécialisation en analyse statistique, apprentissage automatique et intelligence d'affaires.",
+                "exp3-desc": "> Protocole de simulation de trading avancé. Gestion d'un portefeuille de 20M$, génération de plus de 3M$ de profit grâce à l'analyse algorithmique stratégique.",
+                "exp4-desc": "> Construction de flux de travail d'apprentissage automatique automatisé utilisant la plateforme Dataiku. Traitement de données avancé et optimisation de modèles.",
+                "projects-title": "ARCHIVES_PROJETS.vault",
+                "access-granted": "ACCÈS_ACCORDÉ",
+                "status-archived": "ARCHIVÉ",
+                "project1-desc": "> Opération avancée d'extraction de données Airbnb à travers le réseau neural de Barcelone. Collecte d'intelligence basée sur l'équipe utilisant des calculs de matrice Excel.",
+                "project2-desc": "> Infiltration et analyse de données gouvernementales. Analyse des tendances d'importation sur cinq ans avec déploiement de tableau de bord Power BI interactif.",
+                "access-files": "ACCÉDER_FICHIERS",
+                "view-source": "VOIR_SOURCE",
+                "skills-title": "MATRICE_CAPACITÉS.sys",
+                "skills-data": "TRAITEMENT_DONNÉES.core",
+                "skills-visual": "INTERFACE_VISUELLE.ui",
+                "skills-stats": "ANALYSE_STATISTIQUE.math",
+                "contact-title": "PROTOCOLE_COMMUNICATION.net",
+                "contact-form-title": "ENVOYER_MESSAGE.exe",
+                "form-name": "NOM_UTILISATEUR:",
+                "form-name-placeholder": "Entrez l'identification...",
+                "form-email": "ADRESSE_EMAIL:",
+                "form-message": "DONNÉES_MESSAGE:",
+                "form-message-placeholder": "Transmettez votre message...",
+                "form-submit": "TRANSMETTRE_MESSAGE",
+                "contact-info-title": "INFO_CONNEXION.dat",
+                "email-node": "NŒUD_EMAIL:",
+                "location-node": "NŒUD_LOCALISATION:",
+                location: "SECTEUR_BAHREÏN",
+                "network-links": "LIENS_RÉSEAU.net",
+                "contact-ready": "Prêt à établir une connexion sécurisée pour les missions de données collaboratives.",
+                "terminal-help": "Tapez 'help' pour les commandes disponibles",
+                "welcome-message": "ACCÈS ACCORDÉ: Bienvenue dans le Portefeuille de Réseau Neural de Feras"
+            },
+            de: {
+                loading: "NEURALE SCHNITTSTELLE INITIALISIEREN...",
+                "loading-sub": "Quantendatenströme laden...",
+                "nav-home": "START",
+                "nav-about": "PROFIL",
+                "nav-experience": "VERLAUF",
+                "nav-projects": "ARCHIVE",
+                "nav-skills": "FÄHIGKEITEN",
+                "nav-contact": "VERBINDEN",
+                status: "STATUS:",
+                online: "ONLINE",
+                "hero-subtitle": "DATENWISSENSCHAFTLER.exe | ANALYST.dll | STRATEGE.sys",
+                "hero-info": "STANDORT: BAHRAIN_KNOTEN | STATUS: AKTIV | EMAIL: ferasalsadadi@gmail.com",
+                "btn-scan": "SCAN_INITIALISIEREN",
+                "btn-linkedin": "LINKEDIN_VERBINDEN",
+                "about-title": "PROFIL_ANALYSE.exe",
+                "about-subtitle": "NEURALES_PROFIL.dat",
+                "about-p1": "> Angehender Datenwissenschaftler mit analytischen Fähigkeiten auf Quantenebene. Spezialisiert auf Mustererkennung in multidimensionalen Geschäftsdatensätzen.",
+                "about-p2": "> Fortgeschrittene Kompetenz in statistischen Algorithmen, Machine-Learning-Protokollen und Business-Intelligence-Systemen. Erfahrung in realen Datenextraktionsoperationen.",
+                "about-p3": "> Mission: Rohdatenströme in umsetzbare Intelligenz für strategische Entscheidungsprozesse umwandeln.",
+                "experience-title": "ERFAHRUNGS_PROTOKOLL.hist",
+                "status-completed": "ABGESCHLOSSEN",
+                "status-progress": "IN_BEARBEITUNG",
+                "status-success": "MISSION_ERFOLGREICH",
+                "status-deployed": "BEREITGESTELLT",
+                "exp1-desc": "> Intensives neurales Training in fortgeschrittenen Analyseprotokollen. Beherrschung von Excel, Power BI, Python und SQL für reale Datenverarbeitungsmissionen.",
+                "exp2-desc": "> Umfassendes Curriculum in Datenwissenschaft und Geschäftsanalyse. Spezialisierung auf statistische Analyse, maschinelles Lernen und Business Intelligence.",
+                "exp3-desc": "> Fortgeschrittenes Trading-Simulationsprotokoll. Verwaltung eines 20M$-Portfolios, Generierung von über 3M$ Gewinn durch strategische algorithmische Analyse.",
+                "exp4-desc": "> Automatisierte Machine-Learning-Workflow-Konstruktion mit der Dataiku-Plattform. Fortgeschrittene Datenverarbeitung und Modelloptimierung.",
+                "projects-title": "PROJEKT_ARCHIVE.vault",
+                "access-granted": "ZUGANG_GEWÄHRT",
+                "status-archived": "ARCHIVIERT",
+                "project1-desc": "> Fortgeschrittene Airbnb-Datenextraktionsoperation über Barcelonas neurales Netzwerk. Teambasierte Intelligenzsammlung mit Excel-Matrixberechnungen.",
+                "project2-desc": "> Regierungsdateninfiltration und -analyse. Fünfjährige Importtrendanalyse mit interaktiver Power BI Dashboard-Bereitstellung.",
+                "access-files": "DATEIEN_ZUGREIFEN",
+                "view-source": "QUELLE_ANZEIGEN",
+                "skills-title": "FÄHIGKEITS_MATRIX.sys",
+                "skills-data": "DATENVERARBEITUNG.core",
+                "skills-visual": "VISUELLE_SCHNITTSTELLE.ui",
+                "skills-stats": "STATISTISCHE_ANALYSE.math",
+                "contact-title": "KOMMUNIKATIONS_PROTOKOLL.net",
+                "contact-form-title": "NACHRICHT_SENDEN.exe",
+                "form-name": "BENUTZERNAME:",
+                "form-name-placeholder": "Identifikation eingeben...",
+                "form-email": "EMAIL_ADRESSE:",
+                "form-message": "NACHRICHTEN_DATEN:",
+                "form-message-placeholder": "Ihre Nachricht übertragen...",
+                "form-submit": "NACHRICHT_ÜBERTRAGEN",
+                "contact-info-title": "VERBINDUNGS_INFO.dat",
+                "email-node": "EMAIL_KNOTEN:",
+                "location-node": "STANDORT_KNOTEN:",
+                location: "BAHRAIN_SEKTOR",
+                "network-links": "NETZWERK_LINKS.net",
+                "contact-ready": "Bereit, sichere Verbindung für kollaborative Datenmissionen herzustellen.",
+                "terminal-help": "Geben Sie 'help' für verfügbare Befehle ein",
+                "welcome-message": "ZUGANG GEWÄHRT: Willkommen zu Feras' Neuralem Netzwerk Portfolio"
+            },
+            zh: {
+                loading: "初始化神经接口...",
+                "loading-sub": "加载量子数据流...",
+                "nav-home": "主页",
+                "nav-about": "档案",
+                "nav-experience": "历史",
+                "nav-projects": "档案库",
+                "nav-skills": "能力",
+                "nav-contact": "连接",
+                status: "状态:",
+                online: "在线",
+                "hero-subtitle": "数据科学家.exe | 分析师.dll | 策略师.sys",
+                "hero-info": "位置: 巴林节点 | 状态: 活跃 | 邮箱: ferasalsadadi@gmail.com",
+                "btn-scan": "初始化扫描",
+                "btn-linkedin": "连接领英",
+                "about-title": "档案分析.exe",
+                "about-subtitle": "神经档案.dat",
+                "about-p1": "> 具有量子级分析能力的有抱负的数据科学家。专门从事多维业务数据集的模式识别。",
+                "about-p2": "> 在统计算法、机器学习协议和商业智能系统方面具有高级熟练度。在现实世界数据挖掘操作方面有经验。",
+                "about-p3": "> 使命：将原始数据流转换为可操作的智能，用于战略决策过程。",
+                "experience-title": "经验日志.hist",
+                "status-completed": "已完成",
+                "status-progress": "进行中",
+                "status-success": "任务成功",
+                "status-deployed": "已部署",
+                "exp1-desc": "> 高级分析协议的密集神经训练。掌握Excel、Power BI、Python和SQL用于现实世界数据处理任务。",
+                "exp2-desc": "> 数据科学和商业分析的综合课程。专门从事统计分析、机器学习和商业智能。",
+                "exp3-desc": "> 高级交易模拟协议。管理2000万美元投资组合，通过战略算法分析产生超过300万美元利润。",
+                "exp4-desc": "> 使用Dataiku平台构建自动化机器学习工作流。高级数据处理和模型优化。",
+                "projects-title": "项目档案.vault",
+                "access-granted": "访问授权",
+                "status-archived": "已归档",
+                "project1-desc": "> 通过巴塞罗那神经网络进行的高级Airbnb数据挖掘操作。使用Excel矩阵计算进行基于团队的情报收集。",
+                "project2-desc": "> 政府数据渗透和分析。五年进口趋势分析与交互式Power BI仪表板部署。",
+                "access-files": "访问文件",
+                "view-source": "查看源码",
+                "skills-title": "能力矩阵.sys",
+                "skills-data": "数据处理.core",
+                "skills-visual": "视觉界面.ui",
+                "skills-stats": "统计分析.math",
+                "contact-title": "通信协议.net",
+                "contact-form-title": "发送消息.exe",
+                "form-name": "用户名:",
+                "form-name-placeholder": "输入身份...",
+                "form-email": "邮箱地址:",
+                "form-message": "消息数据:",
+                "form-message-placeholder": "传输您的消息...",
+                "form-submit": "传输消息",
+                "contact-info-title": "连接信息.dat",
+                "email-node": "邮箱节点:",
+                "location-node": "位置节点:",
+                location: "巴林扇区",
+                "network-links": "网络链接.net",
+                "contact-ready": "准备建立安全连接进行协作数据任务。",
+                "terminal-help": "输入'help'查看可用命令",
+                "welcome-message": "访问授权：欢迎来到费拉斯的神经网络作品集"
+            },
+            ja: {
+                loading: "ニューラルインターフェース初期化中...",
+                "loading-sub": "量子データストリーム読み込み中...",
+                "nav-home": "ホーム",
+                "nav-about": "プロフィール",
+                "nav-experience": "履歴",
+                "nav-projects": "アーカイブ",
+                "nav-skills": "能力",
+                "nav-contact": "接続",
+                status: "ステータス:",
+                online: "オンライン",
+                "hero-subtitle": "データサイエンティスト.exe | アナリスト.dll | ストラテジスト.sys",
+                "hero-info": "場所: バーレーンノード | ステータス: アクティブ | メール: ferasalsadadi@gmail.com",
+                "btn-scan": "スキャン初期化",
+                "btn-linkedin": "LinkedIn接続",
+                "about-title": "プロフィール分析.exe",
+                "about-subtitle": "ニューラルプロフィール.dat",
+                "about-p1": "> 量子レベルの分析能力を持つ志望データサイエンティスト。多次元ビジネスデータセットでのパターン認識を専門とする。",
+                "about-p2": "> 統計アルゴリズム、機械学習プロトコル、ビジネスインテリジェンスシステムの高度な習熟。実世界のデータマイニング操作の経験。",
+                "about-p3": "> ミッション：生データストリームを戦略的意思決定プロセスのための実行可能なインテリジェンスに変換する。",
+                "experience-title": "経験ログ.hist",
+                "status-completed": "完了",
+                "status-progress": "進行中",
+                "status-success": "ミッション成功",
+                "status-deployed": "デプロイ済み",
+                "exp1-desc": "> 高度な分析プロトコルでの集中的ニューラルトレーニング。実世界のデータ処理ミッションのためのExcel、Power BI、Python、SQLの習得。",
+                "exp2-desc": "> データサイエンスとビジネス分析の包括的カリキュラム。統計分析、機械学習、ビジネスインテリジェンスを専門とする。",
+                "exp3-desc": "> 高度なトレーディングシミュレーションプロトコル。2000万ドルのポートフォリオを管理し、戦略的アルゴリズム分析により300万ドル以上の利益を生成。",
+                "exp4-desc": "> Dataiku プラットフォームを使用した自動機械学習ワークフローの構築。高度なデータ処理とモデル最適化。",
+                "projects-title": "プロジェクトアーカイブ.vault",
+                "access-granted": "アクセス許可",
+                "status-archived": "アーカイブ済み",
+                "project1-desc": "> バルセロナのニューラルネットワークを通じた高度なAirbnbデータマイニング操作。Excelマトリックス計算を使用したチームベースのインテリジェンス収集。",
+                "project2-desc": "> 政府データの侵入と分析。インタラクティブなPower BIダッシュボードデプロイメントによる5年間の輸入トレンド分析。",
+                "access-files": "ファイルアクセス",
+                "view-source": "ソース表示",
+                "skills-title": "能力マトリックス.sys",
+                "skills-data": "データ処理.core",
+                "skills-visual": "ビジュアルインターフェース.ui",
+                "skills-stats": "統計分析.math",
+                "contact-title": "通信プロトコル.net",
+                "contact-form-title": "メッセージ送信.exe",
+                "form-name": "ユーザー名:",
+                "form-name-placeholder": "識別情報を入力...",
+                "form-email": "メールアドレス:",
+                "form-message": "メッセージデータ:",
+                "form-message-placeholder": "メッセージを送信...",
+                "form-submit": "メッセージ送信",
+                "contact-info-title": "接続情報.dat",
+                "email-node": "メールノード:",
+                "location-node": "場所ノード:",
+                location: "バーレーンセクター",
+                "network-links": "ネットワークリンク.net",
+                "contact-ready": "協力的なデータミッションのための安全な接続を確立する準備ができています。",
+                "terminal-help": "'help'と入力して利用可能なコマンドを表示",
+                "welcome-message": "アクセス許可：フェラスのニューラルネットワークポートフォリオへようこそ"
+            },
+            ru: {
+                loading: "ИНИЦИАЛИЗАЦИЯ НЕЙРОННОГО ИНТЕРФЕЙСА...",
+                "loading-sub": "Загрузка квантовых потоков данных...",
+                "nav-home": "ГЛАВНАЯ",
+                "nav-about": "ПРОФИЛЬ",
+                "nav-experience": "ИСТОРИЯ",
+                "nav-projects": "АРХИВЫ",
+                "nav-skills": "СПОСОБНОСТИ",
+                "nav-contact": "ПОДКЛЮЧЕНИЕ",
+                status: "СТАТУС:",
+                online: "В СЕТИ",
+                "hero-subtitle": "УЧЕНЫЙ_ДАННЫХ.exe | АНАЛИТИК.dll | СТРАТЕГ.sys",
+                "hero-info": "МЕСТОПОЛОЖЕНИЕ: УЗЕЛ_БАХРЕЙН | СТАТУС: АКТИВЕН | EMAIL: ferasalsadadi@gmail.com",
+                "btn-scan": "ИНИЦИАЛИЗИРОВАТЬ_СКАНИРОВАНИЕ",
+                "btn-linkedin": "ПОДКЛЮЧИТЬ_LINKEDIN",
+                "about-title": "АНАЛИЗ_ПРОФИЛЯ.exe",
+                "about-subtitle": "НЕЙРОННЫЙ_ПРОФИЛЬ.dat",
+                "about-p1": "> Начинающий ученый данных с аналитическими способностями квантового уровня. Специализируется на распознавании паттернов в многомерных бизнес-наборах данных.",
+                "about-p2": "> Продвинутое владение статистическими алгоритмами, протоколами машинного обучения и системами бизнес-аналитики. Опыт в реальных операциях по добыче данных.",
+                "about-p3": "> Миссия: Преобразование сырых потоков данных в действенную аналитику для процессов стратегического принятия решений.",
+                "experience-title": "ЖУРНАЛ_ОПЫТА.hist",
+                "status-completed": "ЗАВЕРШЕНО",
+                "status-progress": "В_ПРОЦЕССЕ",
+                "status-success": "МИССИЯ_УСПЕШНА",
+                "status-deployed": "РАЗВЕРНУТО",
+                "exp1-desc": "> Интенсивное нейронное обучение продвинутым протоколам аналитики. Освоение Excel, Power BI, Python и SQL для реальных миссий обработки данных.",
+                "exp2-desc": "> Комплексная программа по науке о данных и бизнес-аналитике. Специализация в статистическом анализе, машинном обучении и бизнес-аналитике.",
+                "exp3-desc": "> Продвинутый протокол торговой симуляции. Управление портфелем в $20М, генерация более $3М прибыли через стратегический алгоритмический анализ.",
+                "exp4-desc": "> Построение автоматизированного рабочего процесса машинного обучения с использованием платформы Dataiku. Продвинутая обработка данных и оптимизация моделей.",
+                "projects-title": "АРХИВ_ПРОЕКТОВ.vault",
+                "access-granted": "ДОСТУП_ПРЕДОСТАВЛЕН",
+                "status-archived": "АРХИВИРОВАНО",
+                "project1-desc": "> Продвинутая операция по добыче данных Airbnb через нейронную сеть Барселоны. Командный сбор разведданных с использованием матричных вычислений Excel.",
+                "project2-desc": "> Проникновение и анализ правительственных данных. Пятилетний анализ импортных трендов с развертыванием интерактивной панели Power BI.",
+                "access-files": "ДОСТУП_К_ФАЙЛАМ",
+                "view-source": "ПРОСМОТР_ИСТОЧНИКА",
+                "skills-title": "МАТРИЦА_СПОСОБНОСТЕЙ.sys",
+                "skills-data": "ОБРАБОТКА_ДАННЫХ.core",
+                "skills-visual": "ВИЗУАЛЬНЫЙ_ИНТЕРФЕЙС.ui",
+                "skills-stats": "СТАТИСТИЧЕСКИЙ_АНАЛИЗ.math",
+                "contact-title": "ПРОТОКОЛ_СВЯЗИ.net",
+                "contact-form-title": "ОТПРАВИТЬ_СООБЩЕНИЕ.exe",
+                "form-name": "ИМЯ_ПОЛЬЗОВАТЕЛЯ:",
+                "form-name-placeholder": "Введите идентификацию...",
+                "form-email": "АДРЕС_EMAIL:",
+                "form-message": "ДАННЫЕ_СООБЩЕНИЯ:",
+                "form-message-placeholder": "Передайте ваше сообщение...",
+                "form-submit": "ПЕРЕДАТЬ_СООБЩЕНИЕ",
+                "contact-info-title": "ИНФОРМАЦИЯ_ПОДКЛЮЧЕНИЯ.dat",
+                "email-node": "УЗЕЛ_EMAIL:",
+                "location-node": "УЗЕЛ_МЕСТОПОЛОЖЕНИЯ:",
+                location: "СЕКТОР_БАХРЕЙН",
+                "network-links": "СЕТЕВЫЕ_ССЫЛКИ.net",
+                "contact-ready": "Готов к установлению безопасного соединения для совместных миссий с данными.",
+                "terminal-help": "Введите 'help' для доступных команд",
+                "welcome-message": "ДОСТУП ПРЕДОСТАВЛЕН: Добро пожаловать в Нейронное Портфолио Фераса"
+            }
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        // Global variables
+        let terminalMode = false;
+        let currentLanguage = 'en';
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+        let konamiIndex = 0;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePortfolio();
+        });
+
+        function initializePortfolio() {
+            // Loading screen
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+                startTypingAnimation();
+                createParticles();
+                initializeScrollAnimations();
+                initializeNavigation();
+            }, 3000);
+
+            // Konami code listener
+            document.addEventListener('keydown', handleKonamiCode);
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            const elements = document.querySelectorAll('[data-translate]');
+            
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
                 }
             });
-        }, observerOptions);
 
-        // Observe all sections
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+            // Update welcome message
+            startTypingAnimation();
+        }
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        function startTypingAnimation() {
+            const welcomeText = translations[currentLanguage]['welcome-message'] || translations['en']['welcome-message'];
+            const element = document.getElementById('welcomeText');
+            let i = 0;
+
+            element.innerHTML = '';
+
+            function typeChar() {
+                if (i < welcomeText.length) {
+                    element.innerHTML = welcomeText.slice(0, i + 1) + '<span class="cursor">|</span>';
+                    i++;
+                    setTimeout(typeChar, 50);
+                } else {
+                    element.innerHTML = welcomeText + '<span class="cursor">|</span>';
+                }
             }
-        });
 
-        // Email sending function
-        function sendEmail(event) {
-            event.preventDefault();
+            typeChar();
+        }
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
             
-            const formData = new FormData(event.target);
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 3 + 's';
+                particle.style.animationDuration = (4 + Math.random() * 4) + 's';
+                particlesContainer.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 8000);
+            }
+
+            setInterval(createParticle, 500);
+        }
+
+        function initializeScrollAnimations() {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        function initializeNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Smooth scrolling
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Active link highlighting
+            window.addEventListener('scroll', () => {
+                const sections = ['home', 'about', 'experience', 'projects', 'skills', 'contact'];
+                const scrollPosition = window.scrollY + 100;
+
+                sections.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    const navLink = document.querySelector(`a[href="#${sectionId}"]`);
+                    
+                    if (section && navLink) {
+                        if (section.offsetTop <= scrollPosition && 
+                            section.offsetTop + section.offsetHeight > scrollPosition) {
+                            navLinks.forEach(link => link.classList.remove('active'));
+                            navLink.classList.add('active');
+                        }
+                    }
+                });
+            });
+        }
+
+        function handleKonamiCode(e) {
+            if (terminalMode) return;
+
+            if (e.code === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    activateTerminal();
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        }
+
+        function activateTerminal() {
+            terminalMode = true;
+            document.getElementById('terminal').style.display = 'block';
+            document.getElementById('terminalInput').focus();
+            
+            const terminalInput = document.getElementById('terminalInput');
+            terminalInput.addEventListener('keypress', handleTerminalInput);
+        }
+
+        function handleTerminalInput(e) {
+            if (e.key === 'Enter') {
+                const input = e.target.value.trim();
+                const history = document.getElementById('terminalHistory');
+                
+                // Add command to history
+                const commandLine = document.createElement('div');
+                commandLine.className = 'terminal-line';
+                commandLine.textContent = `FERAS@NEURAL:~$ ${input}`;
+                history.appendChild(commandLine);
+
+                // Process command
+                const response = processTerminalCommand(input);
+                const responseLine = document.createElement('div');
+                responseLine.className = 'terminal-line';
+                responseLine.textContent = response;
+                history.appendChild(responseLine);
+
+                // Add empty line
+                const emptyLine = document.createElement('div');
+                emptyLine.className = 'terminal-line';
+                history.appendChild(emptyLine);
+
+                // Clear input
+                e.target.value = '';
+
+                // Scroll to bottom
+                history.scrollTop = history.scrollHeight;
+            }
+        }
+
+        function processTerminalCommand(command) {
+            const cmd = command.toLowerCase();
+            
+            const commands = {
+                'help': 'Available commands: about, skills, projects, contact, clear, exit, lang',
+                'about': 'Feras Alsadadi - Data Scientist specializing in advanced analytics and machine learning',
+                'skills': 'Core abilities: Python, SQL, Excel, Power BI, Tableau, Machine Learning, Statistical Analysis',
+                'projects': 'Active archives: Barcelona_Analysis.prj, Bahrain_Imports.sys',
+                'contact': 'Email: ferasalsadadi@gmail.com | LinkedIn: /in/feras-alsadadi-598682289',
+                'lang': `Current language: ${currentLanguage.toUpperCase()} | Available: EN, AR, ES, FR, DE, ZH, JA, RU`,
+                'clear': 'CLEAR_SCREEN',
+                'exit': 'EXIT_TERMINAL'
+            };
+
+            if (cmd === 'clear') {
+                document.getElementById('terminalHistory').innerHTML = `
+                    <div class="terminal-line">FERAS_TERMINAL v2.1.0 - Neural Interface Activated</div>
+                    <div class="terminal-line">Type 'help' for available commands</div>
+                    <div class="terminal-line"></div>
+                `;
+                return '';
+            } else if (cmd === 'exit') {
+                exitTerminal();
+                return '';
+            } else if (commands[cmd]) {
+                return commands[cmd];
+            } else {
+                return `Command not found: ${command}`;
+            }
+        }
+
+        function exitTerminal() {
+            terminalMode = false;
+            document.getElementById('terminal').style.display = 'none';
+        }
+
+        function sendMessage(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
             const name = formData.get('name');
             const email = formData.get('email');
             const message = formData.get('message');
@@ -1125,7 +1926,7 @@
             const subject = `Portfolio Contact from ${name}`;
             const body = `Hello Feras,
 
-My name is ${name} and I'm reaching out through your portfolio website.
+My name is ${name} and I'm reaching out through your neural network portfolio.
 
 Email: ${email}
 
@@ -1141,30 +1942,23 @@ ${name}`;
             // Open email client
             window.location.href = mailtoLink;
             
-            // Show confirmation message
-            alert(`Thank you, ${name}! Your email client should now open with a pre-filled message. Please send the email to complete your inquiry.`);
+            // Show confirmation
+            alert(`Message transmission initiated, ${name}! Your email client should now open with a pre-filled message.`);
             
             // Reset form
-            event.target.reset();
+            e.target.reset();
         }
 
-        // Add some interactive hover effects
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Initialize animations on page load
-        window.addEventListener('load', () => {
-            // Add a small delay to ensure smooth initial animations
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
+        // Smooth scrolling for all anchor links
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('a[href^="#"]')) {
+                e.preventDefault();
+                const targetId = e.target.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
         });
     </script>
 </body>
